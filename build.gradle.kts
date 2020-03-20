@@ -14,6 +14,8 @@ plugins {
 group = "io.github.bbortt.buessle.app"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
+val springSessionVersion = "1.3.5.RELEASE"
+
 sonarqube {
     properties {
         property("sonar.projectKey", "bbortt_buessle_app")
@@ -25,6 +27,7 @@ allprojects {
 
     repositories {
         mavenCentral()
+        jcenter()
     }
 }
 
@@ -37,7 +40,11 @@ configurations {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-websocket")
     implementation("org.springframework.boot:spring-boot-starter-undertow")
+
     implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("org.springframework.session", "spring-session", "${springSessionVersion}")
+
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")

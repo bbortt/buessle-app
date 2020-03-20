@@ -1,0 +1,6 @@
+logging:
+  level:
+    ROOT: debug
+spring:
+  session:
+    store-type: none

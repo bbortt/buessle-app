@@ -12,6 +12,8 @@ describe('RootClass', () => {
       <RootClass Component={child} pageProps={{ testProp }} />
     )
 
-    expect(rootApp.html()).to.equal(`<h1>${testProp}</h1>`)
+    expect(rootApp.html()).to.equal(
+      `<div id="root" class="container"><h1>${testProp}</h1></div>`
+    )
   })
 })
