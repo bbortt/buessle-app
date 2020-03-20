@@ -1,0 +1,37 @@
+language: java
+dist: trusty
+jdk: openjdk11
+
+sudo: false
+install: true
+
+if: tag is blank
+
+notifications:
+  email: false
+
+services:
+  - docker
+
+addons:
+  sonarcloud:
+    organization: "bbortt-github"
+    token:
+      secure: "JKIvvciW1XKkt0xVmM3/k2QGbIWNqhQ6qZpxEZZ3lic/5tKJh6BkFrmHCh/wIjH5remsAUQlS0tZyX5f3M9aqGvQR5xg9+hPq+dHWn+kfx2RPA/4O3h1b2G7XR/rYY5qtaRNnjQGdx09af0NPqeyJ2DFTUz6xBvjGkHENE6UmySMX3wxehnwwi4RUxRIQHiBFLQ/MwqW8IWeE9aWNB1hTK8v8nKHPVrKM8eyizz5PhgxO8AMhb7uxsZ4D5dJ0SmY0+iQoe29qaZFcTK00YtSZZEjAQOMLVXaBXRxunuK8iLyx/YyIfR3yceZw+U3CcAWRiBYxiWOcMPKng3w7c+Fi4S1K9LL9E5i2/BethetFV03n/KU1Iu3XHXBuUDy4f15w87dQ85l+LTkrvZOnVNCGBncRV9GYkXXStBF/rJ6fqQY413Lh1fAh72fHNZpyy9hKuygiFXTgoqQo26q5WeJk6wBfEf9oCHEXBMXGx2D/quyrrsx31xEE/maVOmcGXDQAZ0AP1a7L/qtWrAO2oKm5JM3i3ejJRVslE1z63AfN9rv+d/HZ1pKgCI4TIc4pXBoZ2Vn17UKIuxbgDyaiZXR2ng+Gk+N6xzVuU89BQCrjwfk4+eV1W2uJSKA4M7Or6GNcakovkyyzuBDKwC95Xra1h/oqLW0DWthBGMG99rCGzI="
+
+script:
+  - ./gradlew dependencyUpdates
+  - ./gradlew -Pversion=$TRAVIS_BUILD_NUMBER --no-daemon -i build sonarqube
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+
+before_cache:
+  - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
+  - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+
+cache:
+  directories:
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
+    - $HOME/.sonar/cache
