@@ -23,8 +23,23 @@ tasks {
         }
     }
 
-    create<com.moowork.gradle.node.npm.NpmTask>("npmBuild") {
+    create<com.moowork.gradle.node.npm.NpmTask>("npmCoverage") {
         dependsOn("npmInstall")
+        setArgs(mutableListOf("run", "coverage"))
+    }
+
+    create<com.moowork.gradle.node.npm.NpmTask>("npmFlow") {
+        dependsOn("npmCoverage")
+        setArgs(mutableListOf("run", "flow"))
+    }
+
+    create<com.moowork.gradle.node.npm.NpmTask>("npmLint") {
+        dependsOn("npmFlow")
+        setArgs(mutableListOf("run", "prettier:check"))
+    }
+
+    create<com.moowork.gradle.node.npm.NpmTask>("npmBuild") {
+        dependsOn("npmLint")
         setArgs(mutableListOf("run", "build"))
     }
 

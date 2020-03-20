@@ -18,13 +18,26 @@ allprojects {
     }
 }
 
+configurations {
+    compile {
+        exclude("org.springframework.boot", "spring-boot-starter-tomcat")
+    }
+}
+
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-websocket")
+    implementation("org.springframework.boot:spring-boot-starter-undertow")
+    implementation("org.springframework.boot:spring-boot-starter-security")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
     testImplementation("org.springframework.boot:spring-boot-starter-test") {
         exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
     }
+
+    implementation("org.springframework.boot:spring-boot-devtools")
 }
 
 tasks {

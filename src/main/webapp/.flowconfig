@@ -1,0 +1,25 @@
+[ignore]
+.*/coverage/
+.*/deprecated/
+.*/.gradle/
+.*/.next/
+.*/out/
+
+[include]
+.*/app/
+.*/pages/
+.*/public/
+.*/test/
+
+[libs]
+
+[lints]
+
+[options]
+module.file_ext=.js
+module.file_ext=.scss
+module.file_ext=.json
+module.name_mapper.extension='scss' -> 'empty/object'
+module.use_strict=true
+
+[strict]
