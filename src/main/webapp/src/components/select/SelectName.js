@@ -1,25 +1,23 @@
 // @flow
 import React from 'react'
 
-import { connect } from 'react-redux'
 import { setUsername } from '../../redux/action'
 import { Action } from 'redux'
 
-require('./chose-name.scss')
-
-type choseNameProps = {
+type selectNameProps = {
   dispatch: Action => any,
+  onUsernameEntered: () => void,
 }
 
-type choseNameState = {
+type selectNameState = {
   username: string,
   errors: {
     username: string,
   },
 }
 
-class ChoseName extends React.Component<choseNameProps, choseNameState> {
-  constructor(props) {
+class SelectName extends React.Component<selectNameProps, selectNameState> {
+  constructor(props: selectNameProps) {
     super(props)
 
     this.state = {
@@ -30,11 +28,11 @@ class ChoseName extends React.Component<choseNameProps, choseNameState> {
     }
   }
 
-  handleChange = event => {
+  handleChange = (event: SyntheticInputEvent<HTMLInputElement>) => {
     this.setState({ [event.target.name]: event.target.value })
   }
 
-  handleSubmit = event => {
+  handleSubmit = (event: SyntheticInputEvent<HTMLButtonElement>) => {
     event.preventDefault()
 
     if (!this.state.username || this.state.username.length < 1) {
@@ -47,11 +45,13 @@ class ChoseName extends React.Component<choseNameProps, choseNameState> {
     this.setState({ errors: { username: '' } }, () =>
       this.props.dispatch(setUsername(this.state.username))
     )
+
+    this.props.onUsernameEntered()
   }
 
   render() {
     return (
-      <div id="chose-name">
+      <div id="select-name">
         <h1>Rundi Büsslä Giele??</h1>
 
         <br />
@@ -94,4 +94,4 @@ class ChoseName extends React.Component<choseNameProps, choseNameState> {
   }
 }
 
-export default connect()(ChoseName)
+export default SelectName

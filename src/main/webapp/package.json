@@ -40,7 +40,6 @@
     "upgrade-interactive": "npm-check --update"
   },
   "dependencies": {
-    "@zeit/next-sass": "^1.0.1",
     "css-modules-require-hook": "^4.2.3",
     "enzyme": "^3.11.0",
     "enzyme-adapter-react-16": "^1.15.2",

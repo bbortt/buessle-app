@@ -19,5 +19,15 @@ body,
     width: 75vw;
     margin: auto;
     text-align: center;
+
+    #select-name {
+      form {
+        text-align: left;
+
+        .error-text {
+          color: red;
+        }
+      }
+    }
   }
 }

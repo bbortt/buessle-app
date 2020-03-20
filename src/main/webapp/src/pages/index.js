@@ -1,9 +1,22 @@
 // @flow
 import React from 'react'
 
-import ChoseName from '../components/initial/ChoseName'
+import { Action } from 'redux'
+import { connect } from 'react-redux'
 
-// TODO: Index will "flow" through the application according to redux state
-const Home = () => <ChoseName />
+import Router from 'next/router'
 
-export default Home
+import SelectName from '../components/select/SelectName'
+
+type homeProps = {
+  dispatch: Action => any,
+}
+
+const Home = (props: homeProps) => (
+  <SelectName
+    dispatch={props.dispatch}
+    onUsernameEntered={() => Router.push('/new')}
+  />
+)
+
+export default connect()(Home)
