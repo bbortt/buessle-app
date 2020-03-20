@@ -2,7 +2,7 @@
 import React from 'react'
 import type { ComponentType } from 'react'
 
-import { Cookies, withCookies } from 'react-cookie'
+import Cookies from 'universal-cookie';
 
 import { connect } from 'react-redux'
 
@@ -15,12 +15,15 @@ type contextProps = {
 // TODO: Maybe better use https://www.npmjs.com/package/next-cookies
 export class CookiesReduxContext extends React.Component<contextProps> {
   render() {
-    const { children, cookies } = this.props
+    if (typeof window !== 'undefined'){
+      const cookies = new Cookies();
+      console.log('cookies: ', cookies.getAll())
+    }
 
-    console.log('cookies: ', cookies)
+    const {children} = this.props
 
     return <div id="cookies-redux-context">{children}</div>
   }
 }
 
-export default withCookies(CookiesReduxContext)
+export default connect()(CookiesReduxContext)
