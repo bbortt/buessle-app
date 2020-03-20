@@ -11,7 +11,7 @@ notifications:
   email: false
 
 services:
-  - docker
+  - redis-server
 
 addons:
   sonarcloud:

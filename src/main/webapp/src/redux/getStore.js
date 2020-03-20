@@ -1,12 +1,19 @@
 // @flow
 import { applyMiddleware, createStore, Store } from 'redux'
 
-import { crashReportingMiddleware, loggingMiddleware } from './middleware'
+import {
+  crashReportingMiddleware,
+  loggingMiddleware,
+  reduxCookieMiddleware,
+} from './middleware'
+import type { MiddlewareType } from './middleware'
 
 import type { ReduxState } from './reducer'
 import rootReducer, { reduxState } from './reducer'
 
-const bindMiddleware = (middleware = []) => {
+import { loadReduxStateFromCookie } from './cookie'
+
+const bindMiddleware = (middleware: MiddlewareType[]) => {
   if (process.env.NODE_ENV !== 'production') {
     const { composeWithDevTools } = require('redux-devtools-extension')
     return composeWithDevTools(
@@ -22,8 +29,13 @@ const bindMiddleware = (middleware = []) => {
 }
 
 const configureStore = (
-  initialState: ReduxState = reduxState
-): Store<ReduxState> => createStore(rootReducer, initialState, bindMiddleware())
+  initialState: ReduxState = loadReduxStateFromCookie() || reduxState
+): Store<ReduxState> =>
+  createStore(
+    rootReducer,
+    initialState,
+    bindMiddleware([reduxCookieMiddleware])
+  )
 
 let store = null
 

@@ -20,11 +20,11 @@ class SelectGame extends React.Component<selectGameProps, selectGameState> {
   }
 
   render() {
-    const { onJoinGame, onCreateGame } = this.props
+    const { onJoinGame, onCreateGame, username } = this.props
 
     return (
       <div id="select-game">
-        <h1>Auso, seg was wosch..</h1>
+        <h1>Auso "{username}", seg was wosch..</h1>
 
         <br />
 

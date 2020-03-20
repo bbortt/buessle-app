@@ -2,8 +2,6 @@
 import React from 'react'
 import type { ComponentType } from 'react'
 
-import { CookiesReduxContext } from '../cookies/CookiesReduxContext'
-
 import { Provider } from 'react-redux'
 import getStore from '../redux/getStore'
 
@@ -18,11 +16,9 @@ export const RootClass = ({
 }) => {
   return (
     <div id="root" className="container">
-        <Provider store={getStore()}>
-          <CookiesReduxContext>
-            <Component {...pageProps} />
-          </CookiesReduxContext>
-        </Provider>
+      <Provider store={getStore()}>
+        <Component {...pageProps} />
+      </Provider>
     </div>
   )
 }
