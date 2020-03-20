@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
 
     id("org.sonarqube") version "2.7.1"
+    id("com.github.ben-manes.versions") version "0.25.0"
 
     kotlin("jvm") version "1.3.61"
     kotlin("plugin.spring") version "1.3.61"
