@@ -26,13 +26,17 @@ body,
     margin: auto;
     text-align: center;
 
-    #select-name {
-      form {
-        text-align: left;
+    form {
+      text-align: left;
 
-        .error-text {
-          color: red;
-        }
+      .error-text {
+        color: red;
+      }
+    }
+
+    #create-game {
+      .tabs-content {
+        margin-bottom: 1rem;
       }
     }
   }

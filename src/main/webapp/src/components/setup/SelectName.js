@@ -45,11 +45,13 @@ export class SelectName extends React.Component<
       return
     }
 
+    const { dispatch, onUsernameEntered } = this.props
+
     this.setState({ errors: { username: '' } }, () =>
-      this.props.dispatch(setUsername(this.state.username))
+      dispatch(setUsername(this.state.username))
     )
 
-    this.props.onUsernameEntered()
+    onUsernameEntered()
   }
 
   render() {
