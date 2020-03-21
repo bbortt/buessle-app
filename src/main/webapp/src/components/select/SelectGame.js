@@ -12,7 +12,10 @@ type selectGameProps = {
 
 type selectGameState = {}
 
-class SelectGame extends React.Component<selectGameProps, selectGameState> {
+export class SelectGame extends React.Component<
+  selectGameProps,
+  selectGameState
+> {
   constructor(props: selectGameProps) {
     super(props)
 
@@ -37,7 +40,7 @@ class SelectGame extends React.Component<selectGameProps, selectGameState> {
             </div>
             <div className="cell medium-4 grid-y">
               <button type="button" className="button" onClick={onCreateGame}>
-                S neus Spiel starte, däich!
+                S neus Spiel starte, denk!
               </button>
             </div>
           </div>

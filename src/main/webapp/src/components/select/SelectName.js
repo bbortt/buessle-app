@@ -16,7 +16,10 @@ type selectNameState = {
   },
 }
 
-class SelectName extends React.Component<selectNameProps, selectNameState> {
+export class SelectName extends React.Component<
+  selectNameProps,
+  selectNameState
+> {
   constructor(props: selectNameProps) {
     super(props)
 

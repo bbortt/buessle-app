@@ -15,6 +15,12 @@ body,
 
   display: flex;
 
+  #cookie-consent {
+    top: 5vh !important;
+    right: 3vw !important;
+    left: auto !important;
+  }
+
   .container {
     width: 75vw;
     margin: auto;
