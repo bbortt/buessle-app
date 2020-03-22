@@ -1,6 +1,9 @@
 // @flow
 import { applyMiddleware, createStore, Store } from 'redux'
 
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from './saga'
+
 import {
   crashReportingMiddleware,
   loggingMiddleware,
@@ -28,13 +31,15 @@ const bindMiddleware = (middleware: MiddlewareType[]) => {
   return applyMiddleware(...middleware)
 }
 
+const sagaMiddleware = createSagaMiddleware()
+
 const configureStore = (
   initialState: ReduxState = loadReduxStateFromCookie() || reduxState
 ): Store<ReduxState> =>
   createStore(
     rootReducer,
     initialState,
-    bindMiddleware([reduxCookieMiddleware])
+    bindMiddleware([reduxCookieMiddleware, sagaMiddleware])
   )
 
 let store = null
@@ -42,6 +47,10 @@ let store = null
 export default (): Store<ReduxState> => {
   if (!store) {
     store = configureStore()
+
+    if (typeof window !== 'undefined') {
+      sagaMiddleware.run(rootSaga)
+    }
   }
 
   return store

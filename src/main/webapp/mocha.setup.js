@@ -3,7 +3,8 @@ import path from 'path'
 import Enzyme from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
 
-import { expect } from 'chai';
+import chai from 'chai'
+import chaiEnzyme from 'chai-enzyme'
 
 import cssModulesRequireHook from 'css-modules-require-hook'
 import sass from 'node-sass'
@@ -21,4 +22,5 @@ cssModulesRequireHook({
 
 Enzyme.configure({adapter: new Adapter()})
 
-global.expect = expect
+chai.use(chaiEnzyme())
+global.expect = chai.expect
