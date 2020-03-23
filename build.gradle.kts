@@ -18,7 +18,7 @@ val springSessionVersion = "1.3.5.RELEASE"
 
 sonarqube {
     properties {
-        property("sonar.projectKey", "bbortt_buessle_app")
+        property("sonar.projectKey", "bbortt_Buessle-App")
     }
 }
 
