@@ -40,6 +40,7 @@ dependencies {
     implementation("redis.clients","jedis","${jedisVersion}")
     implementation("org.springframework.session", "spring-session", "${springSessionVersion}")
 
+    implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 
     implementation("org.jetbrains.kotlin:kotlin-reflect")
