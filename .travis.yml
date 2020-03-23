@@ -2,7 +2,6 @@ language: java
 dist: trusty
 jdk: openjdk11
 
-sudo: false
 install: true
 
 if: tag is blank
@@ -25,6 +24,7 @@ before_cache:
   - rm -fr $HOME/.gradle/caches/*/plugin-resolution/
 
 cache:
-  directories:
+  - npm
+  - directories:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
