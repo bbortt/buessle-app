@@ -14,6 +14,7 @@ group = "io.github.bbortt.buessle.app"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 val springSessionVersion = "1.3.5.RELEASE"
+val jedisVersion = "3.2.0"
 
 allprojects {
     version = "${version}"
@@ -36,6 +37,7 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
+    implementation("redis.clients","jedis","${jedisVersion}")
     implementation("org.springframework.session", "spring-session", "${springSessionVersion}")
 
     implementation("org.springframework.boot:spring-boot-starter-actuator")
