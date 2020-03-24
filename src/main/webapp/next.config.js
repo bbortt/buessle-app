@@ -8,17 +8,17 @@ dotenvLoad();
 const withNextEnv = nextEnv();
 
 module.exports = withNextEnv({
-  publicRuntimeConfig: {
-    backendUrl: process.env.APPL_BACKEND_URL || 'http://localhost:8080',
-  },
-  webpack(config) {
-    config.plugins.push(
-        new webpack.ProvidePlugin({
-          $: 'jquery',
-          jQuery: 'jquery',
-        }),
-    )
+    publicRuntimeConfig: {
+        backendUrl: process.env.APPL_BACKEND_URL || 'http://localhost:8080',
+    },
+    webpack(config) {
+        config.plugins.push(
+            new webpack.ProvidePlugin({
+                $: 'jquery',
+                jQuery: 'jquery',
+            }),
+        )
 
-    return config
-  },
+        return config
+    },
 })
