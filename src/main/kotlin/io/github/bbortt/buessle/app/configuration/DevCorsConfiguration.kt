@@ -1,4 +1,4 @@
-package io.github.bbortt.buessle.app.config
+package io.github.bbortt.buessle.app.configuration
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
@@ -13,6 +13,7 @@ import java.util.*
 class DevCorsConfiguration(corsFilter: UrlBasedCorsConfigurationSource = corsConfiguration()) : CorsFilter(corsFilter) {
 
     companion object {
+
         @Bean
         fun corsConfiguration(): UrlBasedCorsConfigurationSource {
             val configuration = CorsConfiguration()

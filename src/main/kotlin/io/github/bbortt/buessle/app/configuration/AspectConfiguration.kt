@@ -1,4 +1,4 @@
-package io.github.bbortt.buessle.app.config
+package io.github.bbortt.buessle.app.configuration
 
 import io.github.bbortt.buessle.app.aspect.ApiLoggingAspect
 import org.springframework.context.annotation.Bean

@@ -1,4 +1,4 @@
-package io.github.bbortt.buessle.app.config
+package io.github.bbortt.buessle.app.configuration
 
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
@@ -13,7 +13,7 @@ import org.springframework.web.filter.CorsFilter
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig(var environment: Environment) {
+class SecurityConfiguration(var environment: Environment) {
 
     @Order(1)
     @Configuration

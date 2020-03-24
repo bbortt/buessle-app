@@ -2,14 +2,15 @@
 import type { SagaIterator } from 'redux-saga'
 import { all, takeLatest } from 'redux-saga/effects'
 
-import { CREATE_GAME } from '../action'
 import type { CreateGameAction } from '../action'
+import { CREATE_GAME } from '../action'
 
 import axios from 'axios'
 
 import getStore from '../getStore'
 
 import getConfig from 'next/config'
+
 const { publicRuntimeConfig } = getConfig()
 
 function* createGame(createGameAction: CreateGameAction) {
@@ -18,7 +19,11 @@ function* createGame(createGameAction: CreateGameAction) {
   const player = { name: username }
 
   const { backendUrl } = publicRuntimeConfig
-  const response = yield axios.post(`${backendUrl}/api/new`, {})
+  const response = yield axios.post(`${backendUrl}/api/new`, {
+    name,
+    gameMode,
+    player,
+  })
   console.log('response: ', response)
 }
 

@@ -37,7 +37,7 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-security")
     implementation("org.springframework.boot:spring-boot-starter-data-redis")
-    implementation("redis.clients","jedis","${jedisVersion}")
+    implementation("redis.clients", "jedis", "${jedisVersion}")
     implementation("org.springframework.session", "spring-session", "${springSessionVersion}")
 
     implementation("org.springframework.boot:spring-boot-starter-aop")

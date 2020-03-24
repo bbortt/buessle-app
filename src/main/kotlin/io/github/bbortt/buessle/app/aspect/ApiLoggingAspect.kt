@@ -11,7 +11,10 @@ import org.slf4j.LoggerFactory
 @Aspect
 class ApiLoggingAspect {
 
-    private val log: Logger = LoggerFactory.getLogger(this.javaClass)
+    companion object {
+
+        private val log: Logger = LoggerFactory.getLogger(ApiLoggingAspect::class.java)
+    }
 
     @Before("execution(* io.github.bbortt.buessle.app.web..*(..)))")
     fun beforeInvocationLogging(joinPoint: JoinPoint) {
@@ -20,8 +23,8 @@ class ApiLoggingAspect {
     }
 
     @AfterReturning(pointcut = "execution(* io.github.bbortt.buessle.app.web..*(..)))", returning = "result")
-    fun afterInvocationLogging(joinPoint: JoinPoint, result: Any) {
-        log.debug("Invocation result => {}", joinPoint.signature, result)
+    fun afterInvocationLogging(result: Any) {
+        log.debug("Invocation result => {}", result)
     }
 
     @AfterThrowing(pointcut = "execution(* io.github.bbortt.buessle.app.web..*(..)))", throwing = "exception")
