@@ -26,6 +26,10 @@ const Home = (props: homeProps) => {
 
   return (
     <div id="home">
+      <h1>Rundi Büsslä Giele??</h1>
+
+      <br />
+
       <SelectName dispatch={dispatch} onUsernameEntered={() => nextPage()} />
     </div>
   )

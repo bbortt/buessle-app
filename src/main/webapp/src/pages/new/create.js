@@ -24,6 +24,10 @@ export class Create extends React.Component<createProps> {
   render() {
     return (
       <div id="new-create">
+        <h1>*Startet neus Spiel*</h1>
+
+        <br />
+
         <CreateGame loadGame={this.loadGame} />
       </div>
     )

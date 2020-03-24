@@ -57,10 +57,6 @@ export class SelectName extends React.Component<
   render() {
     return (
       <div id="select-name">
-        <h1>Rundi Büsslä Giele??</h1>
-
-        <br />
-
         <form>
           <div className="grid-container ">
             <div className="grid-x grid-margin-x">

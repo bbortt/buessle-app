@@ -1,11 +1,10 @@
 // @flow
 import React from 'react'
-import type { ComponentType } from 'react'
-
-import App from 'next/app'
 
 import { Provider } from 'react-redux'
 import getStore from '../redux/getStore'
+
+import App from 'next/app'
 
 import updateFoundation from '../foundation/updateFoundation'
 

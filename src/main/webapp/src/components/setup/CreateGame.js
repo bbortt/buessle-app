@@ -68,10 +68,6 @@ export class CreateGame extends React.Component<
   render() {
     return (
       <div id="create-game">
-        <h1>*Startet neus Spiel*</h1>
-
-        <br />
-
         <form>
           <div className="grid-container ">
             <div className="grid-x grid-margin-x">
