@@ -9,7 +9,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
 @Aspect
-class LoggingAspect {
+class ApiLoggingAspect {
 
     private val log: Logger = LoggerFactory.getLogger(this.javaClass)
 

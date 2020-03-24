@@ -18,11 +18,7 @@ function* createGame(createGameAction: CreateGameAction) {
   const player = { name: username }
 
   const { backendUrl } = publicRuntimeConfig
-  const response = yield axios.post(`${backendUrl}/api/new`, {
-    player,
-    name,
-    gameMode,
-  })
+  const response = yield axios.post(`${backendUrl}/api/new`, {})
   console.log('response: ', response)
 }
 

@@ -1,6 +1,6 @@
 package io.github.bbortt.buessle.app.config
 
-import io.github.bbortt.buessle.app.aspect.LoggingAspect
+import io.github.bbortt.buessle.app.aspect.ApiLoggingAspect
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 
@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Configuration
 class AspectConfiguration {
 
     @Bean
-    fun loggingAspect(): LoggingAspect {
-        return LoggingAspect();
+    fun apiLoggingAspect(): ApiLoggingAspect {
+        return ApiLoggingAspect();
     }
 }

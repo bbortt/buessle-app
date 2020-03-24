@@ -1,38 +1,51 @@
 package io.github.bbortt.buessle.app.config
 
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Profile
+import org.springframework.core.annotation.Order
 import org.springframework.core.env.Environment
-import org.springframework.core.env.Profiles
-import org.springframework.http.HttpMethod
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.builders.WebSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.web.filter.CorsFilter
 
 @Configuration
 @EnableWebSecurity
-class SecurityConfig(private var environment: Environment) : WebSecurityConfigurerAdapter() {
+class SecurityConfig(var environment: Environment) {
 
-    @Throws(Exception::class)
-    override fun configure(web: WebSecurity) {
-        if (environment.acceptsProfiles(Profiles.of("dev"))) {
+    @Order(1)
+    @Configuration
+    @Profile("dev")
+    class DevSecurityConfig(var corsFilter: CorsFilter) : WebSecurityConfigurerAdapter() {
+
+        @Throws(Exception::class)
+        override fun configure(web: WebSecurity) {
             web.debug(true)
         }
 
-        web
-                .ignoring()
-                .antMatchers(HttpMethod.OPTIONS)
+        @Throws(Exception::class)
+        override fun configure(http: HttpSecurity) {
+            http
+                    .csrf().disable()
+
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+
+                    .and()
+                    .addFilter(corsFilter)
+        }
     }
 
-    @Throws(Exception::class)
-    override fun configure(http: HttpSecurity) {
-        if (environment.acceptsProfiles(Profiles.of("dev"))) {
-            http.csrf().disable()
-        }
+    @Configuration
+    class ProdSecurityConfig : WebSecurityConfigurerAdapter() {
 
-        http
-                .sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+        @Throws(Exception::class)
+        override fun configure(http: HttpSecurity) {
+            http
+                    .sessionManagement()
+                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+        }
     }
 }
