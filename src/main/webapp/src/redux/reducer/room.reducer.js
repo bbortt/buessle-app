@@ -1,13 +1,19 @@
 // @flow
-import type { JoinRoomAction, RoomAction } from '../action/room.action'
-import { JOIN_ROOM } from '../action/room.action'
+import type {
+  JoinRoomAction,
+  RoomAction,
+  ValidateRoomFailedAction,
+} from '../action/room.action'
+import { JOIN_ROOM, VALIDATE_ROOM_FAILED } from '../action/room.action'
 
 export type RoomState = {
   uuid: string,
+  validateError: string,
 }
 
 export const initialRoomState: RoomState = {
   uuid: '',
+  validateError: '',
 }
 
 export default (
@@ -15,6 +21,14 @@ export default (
   action: RoomAction
 ): RoomState => {
   switch (action.type) {
+    case VALIDATE_ROOM_FAILED:
+      const validateRoomFailedAction = ((action: any): ValidateRoomFailedAction)
+
+      return {
+        ...state,
+        uuid: validateRoomFailedAction.uuid,
+        validateError: VALIDATE_ROOM_FAILED,
+      }
     case JOIN_ROOM:
       const joinRoomAction = ((action: any): JoinRoomAction)
 

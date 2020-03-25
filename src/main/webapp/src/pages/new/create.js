@@ -13,7 +13,7 @@ type createProps = {
 }
 
 const Create = (props: createProps) => {
-  const { dispatch } = this.props
+  const { dispatch } = props
 
   return (
     <div id="new-create">

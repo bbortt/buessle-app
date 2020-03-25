@@ -1,13 +1,42 @@
 // @flow
 import type { SagaIterator } from 'redux-saga'
-import { all, call, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeLatest } from 'redux-saga/effects'
 
-import type { CreateGameAction } from '../action'
-import { JOIN_ROOM } from '../action'
+import type { JoinRoomAction, ValidateRoomAction } from '../action'
+import {
+  JOIN_ROOM,
+  VALIDATE_ROOM,
+  joinRoom as joinRoomAction,
+  validateRoomFailed,
+} from '../action'
 
 import Router from 'next/router'
+import getConfig from 'next/config'
 
-function* joinRoom(joinRoomAction: CreateGameAction) {
+import axios from 'axios'
+
+const { publicRuntimeConfig } = getConfig()
+
+function* validateRoom(validateRoomAction: ValidateRoomAction) {
+  const { uuid } = validateRoomAction
+
+  const { backendUrl } = publicRuntimeConfig
+  try {
+    const response = yield call(axios.post, `${backendUrl}/api/validate`, {
+      uuid,
+    })
+    yield put(joinRoomAction(response.data))
+  } catch (error) {
+    // TODO: Receive error code from backend
+    yield put(validateRoomFailed(uuid))
+  }
+}
+
+function* validateRoomSaga(): SagaIterator {
+  yield takeLatest(VALIDATE_ROOM, validateRoom)
+}
+
+function* joinRoom(joinRoomAction: JoinRoomAction) {
   yield call(Router.push, '/new/wait')
 }
 
@@ -16,5 +45,5 @@ function* joinRoomSaga(): SagaIterator {
 }
 
 export default function* roomSaga(): SagaIterator {
-  yield all([joinRoomSaga()])
+  yield all([validateRoomSaga(), joinRoomSaga()])
 }

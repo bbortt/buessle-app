@@ -2,13 +2,13 @@
 import React from 'react'
 
 import type { Action } from 'redux'
-import { joinRoom } from '../../redux/action'
+import { validateRoom } from '../../redux/action'
 
-import Router from 'next/router'
 import { withRouter } from 'next/router'
 
 type joinGameProps = {
   dispatch: (action: Action) => void,
+  validateRoomError: string,
 }
 
 type joinGameState = {
@@ -19,10 +19,24 @@ type joinGameState = {
 }
 
 export class JoinGame extends React.Component<joinGameProps, joinGameState> {
+  static getDerivedStateFromProps(props: joinGameProps, state: joinGameState) {
+    if (!!props.validateRoomError) {
+      return {
+        ...state,
+        errors: { uuid: 'Das Game gits ned. Überprüef bitte dini Igab!' },
+      }
+    }
+
+    return { ...state, errors: { uuid: '' } }
+  }
+
   constructor(props: joinGameProps) {
     super(props)
 
-    const { uuid } = props.router.query
+    let uuid
+    if (typeof window !== 'undefined') {
+      uuid = new URLSearchParams(window.location.search).get('uuid')
+    }
 
     this.state = {
       uuid: uuid || '',
@@ -50,7 +64,7 @@ export class JoinGame extends React.Component<joinGameProps, joinGameState> {
 
     this.setState({ errors: { uuid: '' } }, () => {
       const { uuid } = this.state
-      dispatch(joinRoom(uuid))
+      dispatch(validateRoom(uuid))
     })
   }
 
