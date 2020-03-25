@@ -4,7 +4,6 @@ plugins {
     id("org.springframework.boot") version "2.2.5.RELEASE"
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
 
-    id("org.sonarqube") version "2.7.1"
     id("com.github.ben-manes.versions") version "0.25.0"
 
     kotlin("jvm") version "1.3.61"
@@ -16,12 +15,6 @@ java.sourceCompatibility = JavaVersion.VERSION_11
 
 val springSessionVersion = "1.3.5.RELEASE"
 val jedisVersion = "3.2.0"
-
-sonarqube {
-    properties {
-        property("sonar.projectKey", "bbortt_buessle_app")
-    }
-}
 
 allprojects {
     version = "${version}"
