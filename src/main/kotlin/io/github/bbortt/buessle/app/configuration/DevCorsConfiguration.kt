@@ -10,19 +10,19 @@ import java.util.*
 
 @Configuration
 @Profile("dev")
-class DevCorsConfiguration(corsFilter: UrlBasedCorsConfigurationSource = corsConfiguration()) : CorsFilter(corsFilter) {
+class DevCorsConfiguration {
 
-    companion object {
-
-        @Bean
-        fun corsConfiguration(): UrlBasedCorsConfigurationSource {
-            val configuration = CorsConfiguration()
-            configuration.allowedOrigins = Collections.singletonList("http://localhost:3000")
-            configuration.allowedMethods = Arrays.asList("GET", "POST")
-            configuration.allowedHeaders = Collections.singletonList("content-type")
-            val source = UrlBasedCorsConfigurationSource()
-            source.registerCorsConfiguration("/api/**", configuration)
-            return source
-        }
+    @Bean
+    fun corsConfiguration(): UrlBasedCorsConfigurationSource {
+        val configuration = CorsConfiguration()
+        configuration.allowedOrigins = Collections.singletonList("http://localhost:3000")
+        configuration.allowedMethods = Arrays.asList("GET", "POST")
+        configuration.allowedHeaders = Collections.singletonList("content-type")
+        val source = UrlBasedCorsConfigurationSource()
+        source.registerCorsConfiguration("/api/**", configuration)
+        return source
     }
+    
+    @Bean
+    fun corsFilter(): CorsFilter = CorsFilter(corsConfiguration())
 }
