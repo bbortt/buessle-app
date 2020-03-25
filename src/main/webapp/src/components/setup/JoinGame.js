@@ -8,6 +8,7 @@ import { withRouter } from 'next/router'
 
 type joinGameProps = {
   dispatch: (action: Action) => void,
+  uuid: string,
   validateRoomError: string,
 }
 
@@ -33,17 +34,26 @@ export class JoinGame extends React.Component<joinGameProps, joinGameState> {
   constructor(props: joinGameProps) {
     super(props)
 
-    let uuid
-    if (typeof window !== 'undefined') {
-      uuid = new URLSearchParams(window.location.search).get('uuid')
-    }
-
     this.state = {
-      uuid: uuid || '',
+      uuid: this.constructUuidIfExists(props),
       errors: {
         uuid: '',
       },
     }
+  }
+
+  constructUuidIfExists(props: joinGameProps) {
+    let uuid
+
+    if (typeof window !== 'undefined') {
+      uuid = new URLSearchParams(window.location.search).get('uuid')
+    }
+
+    if (!!uuid) {
+      uuid = props.uuid
+    }
+
+    return uuid || ''
   }
 
   handleChange = (event: SyntheticInputEvent<HTMLInputElement>) => {

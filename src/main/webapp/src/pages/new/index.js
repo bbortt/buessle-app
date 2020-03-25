@@ -1,8 +1,8 @@
 // @flow
 import React from 'react'
 
-import { Action } from 'redux'
 import { connect } from 'react-redux'
+import type { Action } from 'redux'
 import type { ReduxState } from '../../redux/reducer'
 
 import withUsernameOnly from '../../components/security/withUsernameOnly'

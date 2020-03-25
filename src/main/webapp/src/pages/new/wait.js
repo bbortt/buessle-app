@@ -2,13 +2,28 @@
 import React from 'react'
 
 import { connect } from 'react-redux'
+import type { Action } from 'redux'
+import type { ReduxState } from '../../redux/reducer'
 
-import withUsernameOnly from '../../components/security/withUsernameOnly'
+import withValidGameOnly from '../../components/security/withValidGameOnly'
 
-const Wait = () => (
-  <div id="new-join">
-    <h1>mal warte hie bitte</h1>
-  </div>
-)
+type waitProps = {
+  dispatch: Action => void,
+  uuid: string,
+}
 
-export default connect()(withUsernameOnly(Wait))
+const Wait = (props: waitProps) => {
+  const { dispatch, uuid } = props
+
+  return (
+    <div id="new-join">
+      <h1>mal warte hie bitte</h1>
+    </div>
+  )
+}
+
+const mapStateToProps = (state: ReduxState) => {
+  return { uuid: state.room.uuid }
+}
+
+export default connect(mapStateToProps)(withValidGameOnly(Wait))

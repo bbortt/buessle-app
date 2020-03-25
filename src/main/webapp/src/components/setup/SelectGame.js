@@ -1,7 +1,7 @@
 // @flow
 import React from 'react'
 
-import { Action } from 'redux'
+import type { Action } from 'redux'
 
 type selectGameProps = {
   dispatch: Action => any,

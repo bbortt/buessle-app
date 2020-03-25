@@ -1,8 +1,9 @@
 // @flow
 import React from 'react'
 
-import type { Action } from 'redux'
 import { connect } from 'react-redux'
+import type { Action } from 'redux'
+import { validateRoom } from '../../redux/action'
 import type { ReduxState } from '../../redux/reducer'
 
 import withUsernameOnly from '../../components/security/withUsernameOnly'
@@ -11,11 +12,16 @@ import JoinGame from '../../components/setup/JoinGame'
 
 type joinProps = {
   dispatch: Action => void,
+  uuid: string,
   validateRoomError: string,
 }
 
 const Join = (props: joinProps) => {
-  const { dispatch, validateRoomError } = props
+  const { dispatch, uuid, validateRoomError } = props
+
+  if (!!uuid && typeof window !== 'undefined') {
+    dispatch(validateRoom(uuid))
+  }
 
   return (
     <div id="new-join">
@@ -23,13 +29,22 @@ const Join = (props: joinProps) => {
 
       <br />
 
-      <JoinGame dispatch={dispatch} validateRoomError={validateRoomError} />
+      <JoinGame
+        dispatch={dispatch}
+        uuid={uuid}
+        validateRoomError={validateRoomError}
+      />
     </div>
   )
 }
 
 const mapStateToProps = (state: ReduxState) => {
-  return { validateRoomError: state.room.validateError }
+  const { uuid, validateError } = state.room
+
+  return {
+    uuid: uuid,
+    validateRoomError: validateError,
+  }
 }
 
 export default connect(mapStateToProps)(withUsernameOnly(Join))

@@ -1,12 +1,11 @@
 // @flow
 import React from 'react'
 
+import type { Action } from 'redux'
 import { setUsername } from '../../redux/action'
-import { Action } from 'redux'
 
 type selectNameProps = {
   dispatch: Action => any,
-  onUsernameEntered: () => void,
 }
 
 type selectNameState = {
@@ -45,13 +44,11 @@ export class SelectName extends React.Component<
       return
     }
 
-    const { dispatch, onUsernameEntered } = this.props
+    const { dispatch } = this.props
 
     this.setState({ errors: { username: '' } }, () =>
       dispatch(setUsername(this.state.username))
     )
-
-    onUsernameEntered()
   }
 
   render() {
