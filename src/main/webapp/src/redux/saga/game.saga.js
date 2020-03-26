@@ -17,9 +17,9 @@ function* createGame(createGameAction: CreateGameAction) {
   const { name, gameMode } = createGameAction
   const player = { name: username }
 
-  const { backendUrl } = publicRuntimeConfig
+  const { apiUrl } = publicRuntimeConfig
   // TODO: Error handling using try/catch
-  const response = yield call(axios.post, `${backendUrl}/api/new`, {
+  const response = yield call(axios.post, `${apiUrl}/api/new`, {
     name,
     gameMode,
     player,

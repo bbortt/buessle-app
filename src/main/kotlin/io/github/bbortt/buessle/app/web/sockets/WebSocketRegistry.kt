@@ -17,6 +17,7 @@ import javax.annotation.PreDestroy
  */
 @Component
 class WebSocketRegistry : WebSocketHandler, AutoCloseable {
+
     private val log = getLogger()
     private val sessions: MutableMap<String, WebSocketSession> = ConcurrentHashMap()
 
