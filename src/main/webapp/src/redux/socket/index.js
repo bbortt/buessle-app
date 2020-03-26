@@ -1,18 +1,35 @@
 // @flow
+import getStore from '../getStore'
+
 import getConfig from 'next/config'
 
 const { publicRuntimeConfig } = getConfig()
 
-const createSocket = () => {
-  const { socketUrl } = publicRuntimeConfig
-  return new WebSocket(`${socketUrl}/sockets`)
+export class Socket {
+  +socket: WebSocket
+
+  constructor() {
+    const { socketUrl } = publicRuntimeConfig
+    this.socket = new WebSocket(`${socketUrl}/sockets`)
+  }
+
+  open = () => {
+    this.socket.onmessage = (event: MessageEvent) => {
+      const { topic, payload } = (event.data: any)
+      getStore().dispatch({ type: topic, payload })
+    }
+  }
+
+  close = () => {
+    this.socket.close()
+  }
 }
 
-let socket
+let socket: Socket
 
-export const getSocket = (): WebSocket => {
+export const getSocket = (): Socket => {
   if (!socket) {
-    socket = createSocket()
+    socket = new Socket()
   }
 
   return socket
