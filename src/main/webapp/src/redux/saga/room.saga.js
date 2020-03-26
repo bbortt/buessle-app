@@ -21,9 +21,9 @@ const { publicRuntimeConfig } = getConfig()
 function* validateRoom(validateRoomAction: ValidateRoomAction) {
   const { uuid } = validateRoomAction
 
-  const { backendUrl } = publicRuntimeConfig
+  const { apiUrl } = publicRuntimeConfig
   try {
-    const response = yield call(axios.post, `${backendUrl}/api/validate`, {
+    const response = yield call(axios.post, `${apiUrl}/api/validate`, {
       uuid,
     })
     yield put(joinRoomAction(response.data))

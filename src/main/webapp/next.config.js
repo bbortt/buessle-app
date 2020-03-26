@@ -9,7 +9,8 @@ const withNextEnv = nextEnv();
 
 module.exports = withNextEnv({
     publicRuntimeConfig: {
-        backendUrl: process.env.APPL_BACKEND_URL || 'http://localhost:8080',
+        socketUrl: process.env.APPL_SOCKET_URL|| 'ws://localhost:8080',
+        apiUrl: process.env.APPL_API_URL || 'http://localhost:8080',
     },
     webpack(config) {
         config.plugins.push(

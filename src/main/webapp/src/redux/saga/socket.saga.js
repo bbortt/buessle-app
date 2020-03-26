@@ -8,7 +8,7 @@ import { CONNECT_SOCKET, DISCONNECT_SOCKET } from '../action'
 import { getSocket } from '../socket'
 
 function* connectSocket(connectSocketAction: ConnectSocketAction) {
-  getSocket().open()
+  getSocket()
 }
 
 function* connectSocketSaga(): SagaIterator {

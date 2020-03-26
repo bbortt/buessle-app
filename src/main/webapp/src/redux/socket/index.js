@@ -1,24 +1,16 @@
 // @flow
-import io from 'socket.io-client'
-
 import getConfig from 'next/config'
 
 const { publicRuntimeConfig } = getConfig()
 
-export type Socket = {
-  open: () => void,
-  on: (eventName: string, callback: (...any) => void) => void,
-  close: () => void,
-}
-
 const createSocket = () => {
-  const { backendUrl } = publicRuntimeConfig
-  return io(backendUrl, { autoConnect: false })
+  const { socketUrl } = publicRuntimeConfig
+  return new WebSocket(`${socketUrl}/sockets`)
 }
 
 let socket
 
-export const getSocket = (): Socket => {
+export const getSocket = (): WebSocket => {
   if (!socket) {
     socket = createSocket()
   }
