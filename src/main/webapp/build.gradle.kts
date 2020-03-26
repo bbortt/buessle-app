@@ -11,8 +11,6 @@ node {
     download = true
 }
 
-
-
 tasks {
     create<Delete>("clean-webapp") {
         group = "build"
@@ -29,17 +27,17 @@ tasks {
     }
 
     create<com.moowork.gradle.node.npm.NpmTask>("npmFlow") {
-        dependsOn("npmCoverage")
+        dependsOn("npmInstall")
         setArgs(mutableListOf("run", "flow"))
     }
 
     create<com.moowork.gradle.node.npm.NpmTask>("npmLint") {
-        dependsOn("npmFlow")
+        dependsOn("npmInstall")
         setArgs(mutableListOf("run", "prettier:check"))
     }
 
     create<com.moowork.gradle.node.npm.NpmTask>("npmBuild") {
-        dependsOn("npmLint")
+        dependsOn("npmCoverage", "npmFlow", "npmLint")
         setArgs(mutableListOf("run", "build"))
     }
 
@@ -49,6 +47,14 @@ tasks {
     }
 
     withType<Assemble> {
+        dependsOn("npmInstall")
+    }
+
+    withType<Test> {
+        dependsOn("npmCoverage")
+    }
+
+    withType<GradleBuild> {
         dependsOn("npmExport")
     }
 }
