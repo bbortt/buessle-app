@@ -3,10 +3,6 @@ import getConfig from 'next/config'
 
 const { publicRuntimeConfig } = getConfig()
 
-export type Socket = {
-  close: () => void,
-}
-
 const createSocket = () => {
   const { socketUrl } = publicRuntimeConfig
   return new WebSocket(`${socketUrl}/sockets`)
@@ -14,7 +10,7 @@ const createSocket = () => {
 
 let socket
 
-export const getSocket = (): Socket => {
+export const getSocket = (): WebSocket => {
   if (!socket) {
     socket = createSocket()
   }
