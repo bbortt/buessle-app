@@ -1,5 +1,6 @@
 package io.github.bbortt.buessle.app.aspect
 
+import io.github.bbortt.buessle.app.config.getLogger
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.annotation.AfterReturning
 import org.aspectj.lang.annotation.AfterThrowing
@@ -13,10 +14,7 @@ import org.springframework.stereotype.Component
 @Component
 class ApiLoggingAspect {
 
-    companion object {
-
-        private val log: Logger = LoggerFactory.getLogger(ApiLoggingAspect::class.java)
-    }
+    private val log = getLogger()
 
     @Before("execution(* io.github.bbortt.buessle.app.web..*(..)))")
     fun beforeInvocationLogging(joinPoint: JoinPoint) {

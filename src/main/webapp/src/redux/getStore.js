@@ -34,7 +34,7 @@ const bindMiddleware = (middleware: MiddlewareType[]) => {
 const sagaMiddleware = createSagaMiddleware()
 
 const configureStore = (
-  initialState: ReduxState = loadReduxStateFromCookie() || reduxState
+  initialState: ReduxState = { ...reduxState, ...loadReduxStateFromCookie() }
 ): Store<ReduxState> =>
   createStore(
     rootReducer,

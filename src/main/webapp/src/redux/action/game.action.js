@@ -4,6 +4,7 @@ import type { GameModeType } from '../../domain/GameMode.type'
 export const CREATE_GAME: string = 'Game: Create'
 
 export type CreateGameAction = {
+  type: string,
   name: string,
   gameMode: GameModeType,
 }

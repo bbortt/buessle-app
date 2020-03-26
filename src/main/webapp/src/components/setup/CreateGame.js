@@ -1,13 +1,16 @@
 // @flow
 import React from 'react'
 
+import type { Action } from 'redux'
+import { createGame } from '../../redux/action'
+
 import { GameMode } from '../../domain/GameMode.type'
 import type { GameModeType } from '../../domain/GameMode.type'
 
 import updateFoundation from '../../foundation/updateFoundation'
 
 type createGameProps = {
-  loadGame: (name: string, gameMode: GameModeType) => void,
+  dispatch: (action: Action) => void,
 }
 
 type createGameState = {
@@ -57,21 +60,17 @@ export class CreateGame extends React.Component<
       return
     }
 
-    const { loadGame } = this.props
+    const { dispatch } = this.props
 
     this.setState({ errors: { name: '' } }, () => {
       const { name, gameMode } = this.state
-      loadGame(name, gameMode)
+      dispatch(createGame(name, gameMode))
     })
   }
 
   render() {
     return (
       <div id="create-game">
-        <h1>*Startet neus Spiel*</h1>
-
-        <br />
-
         <form>
           <div className="grid-container ">
             <div className="grid-x grid-margin-x">

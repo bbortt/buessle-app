@@ -1,11 +1,10 @@
 // @flow
 import React from 'react'
 
-import { Action } from 'redux'
 import { connect } from 'react-redux'
+import type { Action } from 'redux'
+import { setUsername } from '../redux/action'
 import type { ReduxState } from '../redux/reducer'
-
-import Router from 'next/router'
 
 import SelectName from '../components/setup/SelectName'
 
@@ -14,19 +13,21 @@ type homeProps = {
   username: string,
 }
 
-const nextPage = () => Router.push('/new')
-
 const Home = (props: homeProps) => {
   const { dispatch, username } = props
 
   if (!!username && typeof window !== 'undefined') {
-    nextPage()
+    dispatch(setUsername(username))
     return null
   }
 
   return (
     <div id="home">
-      <SelectName dispatch={dispatch} onUsernameEntered={() => nextPage()} />
+      <h1>Rundi Büsslä Giele??</h1>
+
+      <br />
+
+      <SelectName dispatch={dispatch} />
     </div>
   )
 }

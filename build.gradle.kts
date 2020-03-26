@@ -40,6 +40,8 @@ dependencies {
     implementation("redis.clients", "jedis", "${jedisVersion}")
     implementation("org.springframework.session", "spring-session", "${springSessionVersion}")
 
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+
     implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
 

@@ -3,11 +3,8 @@ import React from 'react'
 
 import { connect } from 'react-redux'
 import type { Action } from 'redux'
-import { createGame } from '../../redux/action'
 
 import withUsernameOnly from '../../components/security/withUsernameOnly'
-
-import type { GameModeType } from '../../domain/GameMode.type'
 
 import CreateGame from '../../components/setup/CreateGame'
 
@@ -15,19 +12,18 @@ type createProps = {
   dispatch: Action => void,
 }
 
-export class Create extends React.Component<createProps> {
-  loadGame = (name: string, gameMode: GameModeType) => {
-    const { dispatch } = this.props
-    dispatch(createGame(name, gameMode))
-  }
+const Create = (props: createProps) => {
+  const { dispatch } = props
 
-  render() {
-    return (
-      <div id="new-create">
-        <CreateGame loadGame={this.loadGame} />
-      </div>
-    )
-  }
+  return (
+    <div id="new-create">
+      <h1>*Startet neus Spiel*</h1>
+
+      <br />
+
+      <CreateGame dispatch={dispatch} />
+    </div>
+  )
 }
 
 export default connect()(withUsernameOnly(Create))

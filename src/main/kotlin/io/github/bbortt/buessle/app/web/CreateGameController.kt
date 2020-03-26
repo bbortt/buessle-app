@@ -9,10 +9,17 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.*
 
 @RestController
-@RequestMapping("/api/new")
+@RequestMapping("/api")
 class CreateGameController {
 
-    @PostMapping
+    @PostMapping("/validate")
+    fun validateRoom(@RequestBody validateRoom: ValidateRoom) = validateRoom.uuid;
+
+    data class ValidateRoom(
+            var uuid: UUID
+    )
+
+    @PostMapping("/new")
     fun createGame(@RequestBody createGame: CreateGame) = UUID.randomUUID();
 
     data class CreateGame(
