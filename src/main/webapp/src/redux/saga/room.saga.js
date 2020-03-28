@@ -9,6 +9,7 @@ import {
   joinRoom as joinRoomAction,
   validateRoomFailed,
   connectSocket,
+  requestInitialPlayers,
 } from '../action'
 
 import Router from 'next/router'
@@ -41,6 +42,7 @@ function* validateRoomSaga(): SagaIterator {
 function* joinRoom(joinRoomAction: JoinRoomAction) {
   yield call(Router.push, '/new/wait')
   yield put(connectSocket())
+  yield put(requestInitialPlayers())
 }
 
 function* joinRoomSaga(): SagaIterator {

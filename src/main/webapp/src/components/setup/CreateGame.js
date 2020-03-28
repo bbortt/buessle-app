@@ -4,8 +4,8 @@ import React from 'react'
 import type { Action } from 'redux'
 import { createGame } from '../../redux/action'
 
-import { GameMode } from '../../domain/GameMode.type'
-import type { GameModeType } from '../../domain/GameMode.type'
+import { GameModeConst } from '../../domain/GameMode.type'
+import type { GameMode } from '../../domain/GameMode.type'
 
 import updateFoundation from '../../foundation/updateFoundation'
 
@@ -15,7 +15,7 @@ type createGameProps = {
 
 type createGameState = {
   name: string,
-  gameMode: GameModeType,
+  gameMode: GameMode,
   errors: {
     name: string,
   },
@@ -30,7 +30,7 @@ export class CreateGame extends React.Component<
 
     this.state = {
       name: '',
-      gameMode: GameMode.FUEFER,
+      gameMode: GameModeConst.FUEFER,
       errors: {
         name: '',
       },
@@ -42,7 +42,7 @@ export class CreateGame extends React.Component<
     updateFoundation('.tabs-content')
   }
 
-  setGameMode(gameMode: GameModeType) {
+  setGameMode(gameMode: GameMode) {
     this.setState({ gameMode })
   }
 
@@ -101,7 +101,7 @@ export class CreateGame extends React.Component<
                       <a
                         href="#5-er"
                         aria-selected="true"
-                        onClick={() => this.setGameMode(GameMode.FUEFER)}
+                        onClick={() => this.setGameMode(GameModeConst.FUEFER)}
                       >
                         5er Bus
                       </a>
@@ -110,7 +110,9 @@ export class CreateGame extends React.Component<
                       <a
                         data-tabs-target="dr-gstaplet"
                         href="#dr-gstaplet"
-                        onClick={() => this.setGameMode(GameMode.DRGSTAPLET)}
+                        onClick={() =>
+                          this.setGameMode(GameModeConst.DRGSTAPLET)
+                        }
                       >
                         Dr Gstaplet
                       </a>
