@@ -1,5 +1,5 @@
 // @flow
-import React from 'React'
+import React from 'react'
 
 import type { Player } from '../../domain/Player.type'
 
