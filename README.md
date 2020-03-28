@@ -17,10 +17,11 @@ Meldne doch under dem [Link](https://github.com/bbortt/buessle-app/issues/new). 
 * [Node.js and npm](https://nodejs.org/en/download/)
 
 # Installation
-Running `./gradlew assemble` fetches all required dependencies (front- and backend).
+Running `./gradlew assemble` fetches all required dependencies for the backend. The frontend is considered as being
+handled via `npm` entirely. If you need to manage it via Gradle as well, add the `-Pfullbuild` property.
 
 ## Packaging
-`./gradlew build` compiles and packages the whole project into a single runnable .jar.
+`./gradlew build -Pfullbuild` compiles and packages the whole project into a single runnable .jar.
 It is located under `build/libs`. Execute it like any other .jar-file.
 
 ## Docker

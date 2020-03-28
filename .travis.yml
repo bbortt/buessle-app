@@ -14,7 +14,7 @@ services:
 
 script:
   - ./gradlew dependencyUpdates
-  - ./gradlew -Pversion=$TRAVIS_BUILD_NUMBER --no-daemon -i build
+  - ./gradlew -Pversion=$TRAVIS_BUILD_NUMBER -Pfullbuild --no-daemon -i build
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)

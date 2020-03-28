@@ -1,16 +1,15 @@
 // @flow
 export const CONNECT_SOCKET: string = 'Socket: Connect'
-export const SOCKET_EVENT: string = 'Socket: Event'
+export const SOCKET_ERROR: string = 'Socket: Error'
 export const DISCONNECT_SOCKET: string = 'Socket: Disconnect'
 
 export type ConnectSocketAction = {
   type: string,
 }
 
-// TODO: Might not be required when dispatching into redux
-export type SocketEventAction = {
+export type SocketErrorAction = {
   type: string,
-  payload: any,
+  errorType: string,
 }
 
 export type DisconnectSocketAction = {
@@ -19,11 +18,15 @@ export type DisconnectSocketAction = {
 
 export type SocketAction =
   | ConnectSocketAction
-  | SocketEventAction
+  | SocketErrorAction
   | DisconnectSocketAction
 
 export const connectSocket = (): ConnectSocketAction => {
   return { type: CONNECT_SOCKET }
+}
+
+export const socketError = (event: Event): SocketErrorAction => {
+  return { type: SOCKET_ERROR, errorType: event.type }
 }
 
 export const disconnectSocket = (): DisconnectSocketAction => {
