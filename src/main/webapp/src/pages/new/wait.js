@@ -5,6 +5,8 @@ import { connect } from 'react-redux'
 import type { Action } from 'redux'
 import type { ReduxState } from '../../redux/reducer'
 
+import type { Player } from '../../domain/Player.type'
+
 import withValidGameOnly from '../../components/security/withValidGameOnly'
 import WaitingRoomPlayerInformation from '../../components/setup/WaitingRoomPlayerInformation'
 
@@ -13,9 +15,12 @@ type waitProps = {
   username: string,
   roomName: string,
   isOwner: boolean,
+  players: Player[],
 }
 
-const startGame = () => {}
+const startGame = () => {
+  // TODO: send start game event via socket
+}
 
 const Wait = (props: waitProps) => {
   const { dispatch, username, roomName, isOwner, players } = props

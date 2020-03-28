@@ -67,7 +67,8 @@ export default (
       const addPlayerAction = ((action: any): AddPlayerAction)
       const { id, name } = addPlayerAction
 
-      const newPlayers = state.players.slice().push({ id, name })
+      const newPlayers = state.players.slice()
+      newPlayers.push({ id, name })
 
       return {
         ...state,

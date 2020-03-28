@@ -16,6 +16,8 @@ import rootReducer, { reduxState } from './reducer'
 
 import { loadReduxStateFromCookie } from './cookie'
 
+import merge from 'lodash/merge'
+
 const bindMiddleware = (middleware: MiddlewareType[]) => {
   if (process.env.NODE_ENV !== 'production') {
     const { composeWithDevTools } = require('redux-devtools-extension')
@@ -34,7 +36,7 @@ const bindMiddleware = (middleware: MiddlewareType[]) => {
 const sagaMiddleware = createSagaMiddleware()
 
 const configureStore = (
-  initialState: ReduxState = { ...reduxState, ...loadReduxStateFromCookie() }
+  initialState: ReduxState = merge(reduxState, loadReduxStateFromCookie())
 ): Store<ReduxState> =>
   createStore(
     rootReducer,

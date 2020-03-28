@@ -46,7 +46,7 @@ function* disconnectSocketSaga(): SagaIterator {
 function* requestInitialPlayers(
   requestInitialPlayersAction: RequestInitialPlayersAction
 ): SagaIterator {
-  getSocket().send({ type: REQUEST_INITIAL_PLAYERS })
+  getSocket().send(JSON.stringify({ type: REQUEST_INITIAL_PLAYERS }))
 }
 
 function* requestInitialPlayersSaga(): SagaIterator {
