@@ -4,7 +4,7 @@ Büsslä Äpp
 
 [![Travis CI](https://travis-ci.com/bbortt/buessle-app.svg?branch=master)](https://travis-ci.com/bbortt/buessle-app)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=bbortt_Buessle-App&metric=alert_status)](https://sonarcloud.io/dashboard?id=bbortt_Buessle-App)
-[![codecov](https://codecov.io/gh/bbortt/buessle-app/branch/master/graph/badge.svg)](https://codecov.io/gh/bbortt/buessle_app)
+[![codecov](https://codecov.io/gh/bbortt/buessle-app/branch/master/graph/badge.svg)](https://codecov.io/gh/bbortt/buessle-app)
 [![Blazing Fast](https://img.shields.io/badge/speed-blazing%20%F0%9F%94%A5-brightgreen.svg?style=flat-square)](https://twitter.com/acdlite/status/974390255393505280)
 [![License: Apache 2](https://img.shields.io/badge/License-Apache2-blue.svg)](https://opensource.org/licenses/MIT)
 
