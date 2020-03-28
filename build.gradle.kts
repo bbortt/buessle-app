@@ -67,10 +67,12 @@ tasks {
         useJUnitPlatform()
     }
 
-    withType<ProcessResources> {
-        dependsOn("src:main:Buessle-Webapp:npmExport")
-        from("src/main/webapp/out") {
-            into("static")
+    if (hasProperty("fullbuild")) {
+        withType<ProcessResources> {
+            dependsOn("src:main:Buessle-Webapp:npmExport")
+            from("src/main/webapp/out") {
+                into("static")
+            }
         }
     }
 }
