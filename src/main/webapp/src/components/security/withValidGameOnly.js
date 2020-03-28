@@ -11,7 +11,7 @@ export const withValidGameOnly = (WrappedComponent: ComponentType<any>) => {
   return class WithValidGameOnly extends React.Component<any> {
     render() {
       const store = getStore()
-      const { uuid } = store.getState().room
+      const { uuid, validated } = store.getState().room
 
       if (!uuid) {
         if (typeof window !== 'undefined') {
@@ -22,7 +22,9 @@ export const withValidGameOnly = (WrappedComponent: ComponentType<any>) => {
         return <div>Loading..</div>
       }
 
-      store.dispatch(validateRoom(uuid))
+      if (!validated) {
+        store.dispatch(validateRoom(uuid))
+      }
 
       return <WrappedComponent {...this.props} />
     }

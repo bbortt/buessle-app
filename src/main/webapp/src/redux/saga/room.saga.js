@@ -26,7 +26,8 @@ function* validateRoom(validateRoomAction: ValidateRoomAction) {
     const response = yield call(axios.post, `${apiUrl}/api/validate`, {
       uuid,
     })
-    yield put(joinRoomAction(response.data))
+    const { name, isOwner } = response.data
+    yield put(joinRoomAction(uuid, name, isOwner))
   } catch (error) {
     // TODO: Receive error code from backend
     yield put(validateRoomFailed(uuid))
@@ -38,8 +39,8 @@ function* validateRoomSaga(): SagaIterator {
 }
 
 function* joinRoom(joinRoomAction: JoinRoomAction) {
-  yield put(connectSocket())
   yield call(Router.push, '/new/wait')
+  yield put(connectSocket())
 }
 
 function* joinRoomSaga(): SagaIterator {

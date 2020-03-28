@@ -9,21 +9,26 @@ import withValidGameOnly from '../../components/security/withValidGameOnly'
 
 type waitProps = {
   dispatch: Action => void,
-  uuid: string,
+  name: string,
+  isOwner: boolean,
 }
 
 const Wait = (props: waitProps) => {
-  const { dispatch, uuid } = props
+  const { dispatch, name, isOwner } = props
 
   return (
     <div id="new-join">
-      <h1>mal warte hie bitte</h1>
+      <h1>warte uf anderi spiler..</h1>
+      <h2>
+        <small>Rum "{name}"</small>
+      </h2>
     </div>
   )
 }
 
 const mapStateToProps = (state: ReduxState) => {
-  return { uuid: state.room.uuid }
+  const { name, isOwner } = state.room
+  return { name, isOwner }
 }
 
 export default connect(mapStateToProps)(withValidGameOnly(Wait))

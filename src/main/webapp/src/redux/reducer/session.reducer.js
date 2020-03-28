@@ -3,7 +3,7 @@ import type { SessionAction, SetUsernameAction } from '../action'
 import { SET_USERNAME } from '../action'
 
 export type SessionState = {
-  username: string,
+  +username: string,
 }
 
 export const initialSessionState: SessionState = {

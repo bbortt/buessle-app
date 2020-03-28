@@ -22,10 +22,10 @@ export type SocketAction =
   | SocketEventAction
   | DisconnectSocketAction
 
-export const connectSocket = () => {
+export const connectSocket = (): ConnectSocketAction => {
   return { type: CONNECT_SOCKET }
 }
 
-export const disconnectSocket = () => {
+export const disconnectSocket = (): DisconnectSocketAction => {
   return { type: DISCONNECT_SOCKET }
 }

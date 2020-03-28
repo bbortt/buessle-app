@@ -13,10 +13,17 @@ import java.util.*
 class CreateGameController {
 
     @PostMapping("/validate")
-    fun validateRoom(@RequestBody validateRoom: ValidateRoom) = validateRoom.uuid;
+    // TODO: Validate room by uuid
+    // Return name if exists, boolean if session is owner (in case he disconnects)
+    fun validateRoom(@RequestBody validateRoom: ValidateRoom) = ValidatedRoom("random name", true);
 
     data class ValidateRoom(
             var uuid: UUID
+    )
+
+    data class ValidatedRoom(
+            var name: String,
+            var isOwner: Boolean
     )
 
     @PostMapping("/new")

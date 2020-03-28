@@ -11,6 +11,9 @@ export type CreateGameAction = {
 
 export type GameAction = CreateGameAction
 
-export const createGame = (name: string, gameMode: GameModeType) => {
+export const createGame = (
+  name: string,
+  gameMode: GameModeType
+): CreateGameAction => {
   return { type: CREATE_GAME, name, gameMode }
 }

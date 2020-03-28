@@ -16,6 +16,8 @@ export type ValidateRoomFailedAction = {
 export type JoinRoomAction = {
   type: string,
   uuid: string,
+  name: string,
+  isOwner: boolean,
 }
 
 export type RoomAction =
@@ -23,14 +25,18 @@ export type RoomAction =
   | ValidateRoomFailedAction
   | JoinRoomAction
 
-export const validateRoom = (uuid: string) => {
+export const validateRoom = (uuid: string): ValidateRoomAction => {
   return { type: VALIDATE_ROOM, uuid }
 }
 
-export const validateRoomFailed = (uuid: string) => {
+export const validateRoomFailed = (uuid: string): ValidateRoomFailedAction => {
   return { type: VALIDATE_ROOM_FAILED, uuid }
 }
 
-export const joinRoom = (uuid: string) => {
-  return { type: JOIN_ROOM, uuid }
+export const joinRoom = (
+  uuid: string,
+  name: string,
+  isOwner: boolean
+): JoinRoomAction => {
+  return { type: JOIN_ROOM, uuid, name, isOwner }
 }
