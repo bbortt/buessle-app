@@ -39,8 +39,6 @@ export default (
 ): RoomState => {
   switch (action.type) {
     case VALIDATE_ROOM:
-      const validateRoomAction = ((action: any): ValidateRoomAction)
-
       return {
         ...state,
         validated: false,

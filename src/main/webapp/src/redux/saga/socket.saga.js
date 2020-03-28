@@ -18,7 +18,7 @@ import {
 
 import { getSocket } from '../socket'
 
-function* connectSocket(connectSocketAction: ConnectSocketAction) {
+function connectSocket(connectSocketAction: ConnectSocketAction) {
   const socket = getSocket()
 
   socket.addEventListener('error', (event: Event) => {
@@ -35,7 +35,7 @@ function* connectSocketSaga(): SagaIterator {
   yield takeLatest(CONNECT_SOCKET, connectSocket)
 }
 
-function* disconnectSocket(disconnectSocketAction: DisconnectSocketAction) {
+function disconnectSocket(disconnectSocketAction: DisconnectSocketAction) {
   getSocket().close()
 }
 
@@ -43,7 +43,7 @@ function* disconnectSocketSaga(): SagaIterator {
   yield takeLatest(DISCONNECT_SOCKET, disconnectSocket)
 }
 
-function* requestInitialPlayers(
+function requestInitialPlayers(
   requestInitialPlayersAction: RequestInitialPlayersAction
 ): SagaIterator {
   getSocket().send(JSON.stringify({ type: REQUEST_INITIAL_PLAYERS }))

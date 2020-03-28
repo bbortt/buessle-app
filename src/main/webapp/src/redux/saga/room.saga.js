@@ -6,7 +6,7 @@ import type { JoinRoomAction, ValidateRoomAction } from '../action'
 import {
   JOIN_ROOM,
   VALIDATE_ROOM,
-  joinRoom as joinRoomAction,
+  joinRoom as joinRoomFromAction,
   validateRoomFailed,
   connectSocket,
   requestInitialPlayers,
@@ -28,7 +28,7 @@ function* validateRoom(validateRoomAction: ValidateRoomAction) {
       uuid,
     })
     const { name, isOwner } = response.data
-    yield put(joinRoomAction(uuid, name, isOwner))
+    yield put(joinRoomFromAction(uuid, name, isOwner))
   } catch (error) {
     // TODO: Receive error code from backend
     yield put(validateRoomFailed(uuid))
