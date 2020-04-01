@@ -4,12 +4,12 @@ import React from 'react'
 import type { Player } from '../../domain/Player.type'
 
 type playerInformationProps = {
-  username: string,
+  userId: number,
   players: Player[],
 }
 
 export const WaitingRoomPlayerInformation = (props: playerInformationProps) => {
-  const { username, players } = props
+  const { userId, players } = props
 
   return (
     <table className="unstriped text-left">
@@ -19,12 +19,12 @@ export const WaitingRoomPlayerInformation = (props: playerInformationProps) => {
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>{username} (ig)</td>
-        </tr>
-        {players.forEach((player: Player) => (
+        {players.map((player: Player) => (
           <tr>
-            <td>{player.name}</td>
+            <td>
+              {player.name}
+              {player.id === userId ? ' (ig)' : ''}
+            </td>
           </tr>
         ))}
       </tbody>

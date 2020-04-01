@@ -10,6 +10,7 @@ import {
   validateRoomFailed,
   connectSocket,
   requestInitialPlayers,
+  addPlayer,
 } from '../action'
 
 import Router from 'next/router'
@@ -20,15 +21,17 @@ import axios from 'axios'
 const { publicRuntimeConfig } = getConfig()
 
 function* validateRoom(validateRoomAction: ValidateRoomAction) {
-  const { uuid } = validateRoomAction
+  const { uuid, username } = validateRoomAction
 
   const { apiUrl } = publicRuntimeConfig
   try {
     const response = yield call(axios.post, `${apiUrl}/api/validate`, {
       uuid,
+      username,
     })
-    const { name, isOwner } = response.data
-    yield put(joinRoomFromAction(uuid, name, isOwner))
+    const { name, userId } = response.data
+    yield put(joinRoomFromAction(uuid, name, userId))
+    yield put(addPlayer(userId, username))
   } catch (error) {
     // TODO: Receive error code from backend
     yield put(validateRoomFailed(uuid))
