@@ -1,12 +1,18 @@
 // @flow
-import type { SessionAction, SetUsernameAction } from '../action'
-import { SET_USERNAME } from '../action'
+import type {
+  JoinRoomAction,
+  SessionAction,
+  SetUsernameAction,
+} from '../action'
+import { JOIN_ROOM, SET_USERNAME } from '../action'
 
 export type SessionState = {
+  +id: number,
   +username: string,
 }
 
 export const initialSessionState: SessionState = {
+  id: 0,
   username: '',
 }
 
@@ -21,6 +27,13 @@ export default (
       return {
         ...state,
         username: setUsernameAction.username,
+      }
+    case JOIN_ROOM:
+      const joinRoomAction = ((action: any): JoinRoomAction)
+
+      return {
+        ...state,
+        id: joinRoomAction.userId,
       }
     default:
       return state

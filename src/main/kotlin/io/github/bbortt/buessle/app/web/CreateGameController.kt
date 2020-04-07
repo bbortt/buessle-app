@@ -15,15 +15,16 @@ class CreateGameController {
     @PostMapping("/validate")
     // TODO: Validate room by uuid
     // Return name if exists, boolean if session is owner (in case he disconnects)
-    fun validateRoom(@RequestBody validateRoom: ValidateRoom) = ValidatedRoom("random name", true);
+    fun validateRoom(@RequestBody validateRoom: ValidateRoom) = ValidatedRoom("random name", 1);
 
     data class ValidateRoom(
-            var uuid: UUID
+            var uuid: UUID,
+            var username: String
     )
 
     data class ValidatedRoom(
             var name: String,
-            var isOwner: Boolean
+            var userId: Int
     )
 
     @PostMapping("/new")

@@ -18,7 +18,6 @@ import type { Player } from '../../domain/Player.type'
 export type RoomState = {
   +uuid: string,
   +name: string,
-  +isOwner: boolean,
   +validated: boolean,
   +validateError: string,
   +players: Player[],
@@ -27,7 +26,6 @@ export type RoomState = {
 export const initialRoomState: RoomState = {
   uuid: '',
   name: '',
-  isOwner: false,
   validated: false,
   validateError: '',
   players: [],
@@ -58,7 +56,6 @@ export default (
         ...state,
         uuid: joinRoomAction.uuid,
         name: joinRoomAction.name,
-        isOwner: joinRoomAction.isOwner,
         validated: true,
       }
     case ADD_PLAYER:
@@ -67,6 +64,7 @@ export default (
 
       const newPlayers = state.players.slice()
       newPlayers.push({ id, name })
+      newPlayers.sort((a: Player, b: Player) => a.id - b.id)
 
       return {
         ...state,

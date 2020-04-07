@@ -12,10 +12,10 @@ import WaitingRoomPlayerInformation from '../../components/setup/WaitingRoomPlay
 
 type waitProps = {
   dispatch: Action => void,
-  username: string,
+  userId: number,
   roomName: string,
-  isOwner: boolean,
   players: Player[],
+  validated: boolean,
 }
 
 const startGame = () => {
@@ -23,7 +23,7 @@ const startGame = () => {
 }
 
 const Wait = (props: waitProps) => {
-  const { dispatch, username, roomName, isOwner, players } = props
+  const { dispatch, userId, roomName, players, validated } = props
 
   return (
     <div id="new-join">
@@ -34,16 +34,13 @@ const Wait = (props: waitProps) => {
       <div className="grid-container fluid">
         <div className="grid-x grid-margin-x">
           <div className="cell medium-offset-2 medium-4">
-            <WaitingRoomPlayerInformation
-              username={username}
-              players={players}
-            />
+            <WaitingRoomPlayerInformation userId={userId} players={players} />
           </div>
           <div className="cell medium-4">
             Game Informatione.. Die chöme no! (Je nach Spielmodus :)
           </div>
           <div className="cell medium-offset-8 medium-2 grid-y"></div>
-          {isOwner ? (
+          {validated && userId === 0 ? (
             <button type="button" className="button" onClick={startGame}>
               Ds Spiel starte
             </button>
@@ -57,8 +54,9 @@ const Wait = (props: waitProps) => {
 }
 
 const mapStateToProps = (state: ReduxState) => {
-  const { name, isOwner, players } = state.room
-  return { username: state.session.username, roomName: name, isOwner, players }
+  const { name, players, validated } = state.room
+  const { id } = state.session
+  return { userId: id, roomName: name, players, validated }
 }
 
 export default connect(mapStateToProps)(withValidGameOnly(Wait))

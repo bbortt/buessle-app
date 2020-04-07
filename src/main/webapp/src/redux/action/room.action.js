@@ -8,6 +8,7 @@ export const ADD_PLAYER = 'Room: Add player'
 export type ValidateRoomAction = {
   type: string,
   uuid: string,
+  username: string,
 }
 
 export type ValidateRoomFailedAction = {
@@ -19,7 +20,7 @@ export type JoinRoomAction = {
   type: string,
   uuid: string,
   name: string,
-  isOwner: boolean,
+  userId: number,
 }
 
 export type RequestInitialPlayersAction = {
@@ -39,8 +40,11 @@ export type RoomAction =
   | RequestInitialPlayersAction
   | AddPlayerAction
 
-export const validateRoom = (uuid: string): ValidateRoomAction => {
-  return { type: VALIDATE_ROOM, uuid }
+export const validateRoom = (
+  uuid: string,
+  username: string
+): ValidateRoomAction => {
+  return { type: VALIDATE_ROOM, uuid, username }
 }
 
 export const validateRoomFailed = (uuid: string): ValidateRoomFailedAction => {
@@ -50,9 +54,9 @@ export const validateRoomFailed = (uuid: string): ValidateRoomFailedAction => {
 export const joinRoom = (
   uuid: string,
   name: string,
-  isOwner: boolean
+  userId: number
 ): JoinRoomAction => {
-  return { type: JOIN_ROOM, uuid, name, isOwner }
+  return { type: JOIN_ROOM, uuid, name, userId }
 }
 
 export const requestInitialPlayers = (): RequestInitialPlayersAction => {
