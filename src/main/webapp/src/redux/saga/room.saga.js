@@ -6,9 +6,11 @@ import type { JoinRoomAction, ValidateRoomAction } from '../action'
 import {
   JOIN_ROOM,
   VALIDATE_ROOM,
-  joinRoom as joinRoomAction,
+  joinRoom as joinRoomFromAction,
   validateRoomFailed,
   connectSocket,
+  requestInitialPlayers,
+  addPlayer,
 } from '../action'
 
 import Router from 'next/router'
@@ -19,14 +21,17 @@ import axios from 'axios'
 const { publicRuntimeConfig } = getConfig()
 
 function* validateRoom(validateRoomAction: ValidateRoomAction) {
-  const { uuid } = validateRoomAction
+  const { uuid, username } = validateRoomAction
 
   const { apiUrl } = publicRuntimeConfig
   try {
     const response = yield call(axios.post, `${apiUrl}/api/validate`, {
       uuid,
+      username,
     })
-    yield put(joinRoomAction(response.data))
+    const { name, userId } = response.data
+    yield put(joinRoomFromAction(uuid, name, userId))
+    yield put(addPlayer(userId, username))
   } catch (error) {
     // TODO: Receive error code from backend
     yield put(validateRoomFailed(uuid))
@@ -38,8 +43,9 @@ function* validateRoomSaga(): SagaIterator {
 }
 
 function* joinRoom(joinRoomAction: JoinRoomAction) {
-  yield put(connectSocket())
   yield call(Router.push, '/new/wait')
+  yield put(connectSocket())
+  yield put(requestInitialPlayers())
 }
 
 function* joinRoomSaga(): SagaIterator {

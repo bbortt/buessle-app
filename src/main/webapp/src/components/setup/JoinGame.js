@@ -8,6 +8,7 @@ import { withRouter } from 'next/router'
 
 type joinGameProps = {
   dispatch: (action: Action) => void,
+  username: string,
   uuid: string,
   validateRoomError: string,
 }
@@ -70,11 +71,11 @@ export class JoinGame extends React.Component<joinGameProps, joinGameState> {
       return
     }
 
-    const { dispatch } = this.props
+    const { dispatch, username } = this.props
 
     this.setState({ errors: { uuid: '' } }, () => {
       const { uuid } = this.state
-      dispatch(validateRoom(uuid))
+      dispatch(validateRoom(uuid, username))
     })
   }
 

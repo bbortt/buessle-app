@@ -8,6 +8,6 @@ export type SetUsernameAction = {
 
 export type SessionAction = SetUsernameAction
 
-export const setUsername = (username: string) => {
+export const setUsername = (username: string): SetUsernameAction => {
   return { type: SET_USERNAME, username }
 }

@@ -12,15 +12,16 @@ import JoinGame from '../../components/setup/JoinGame'
 
 type joinProps = {
   dispatch: Action => void,
+  username: string,
   uuid: string,
   validateRoomError: string,
 }
 
 const Join = (props: joinProps) => {
-  const { dispatch, uuid, validateRoomError } = props
+  const { dispatch, uuid, username, validateRoomError } = props
 
   if (!!uuid && typeof window !== 'undefined') {
-    dispatch(validateRoom(uuid))
+    dispatch(validateRoom(uuid, username))
   }
 
   return (
@@ -40,9 +41,11 @@ const Join = (props: joinProps) => {
 
 const mapStateToProps = (state: ReduxState) => {
   const { uuid, validateError } = state.room
+  const { username } = state.session
 
   return {
-    uuid: uuid,
+    username,
+    uuid,
     validateRoomError: validateError,
   }
 }

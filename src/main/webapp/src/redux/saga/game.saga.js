@@ -24,7 +24,7 @@ function* createGame(createGameAction: CreateGameAction) {
     gameMode,
     player,
   })
-  yield put(joinRoom(response.data))
+  yield put(joinRoom(response.data, name, 0))
 }
 
 function* createGameSaga(): SagaIterator {

@@ -1,7 +1,7 @@
 // @flow
-export class GameMode {
-  static FUEFER: GameModeType = 'FUEFER'
-  static DRGSTAPLET: GameModeType = 'DRGSTAPLET'
+export class GameModeConst {
+  static FUEFER: GameMode = 'FUEFER'
+  static DRGSTAPLET: GameMode = 'DRGSTAPLET'
 }
 
-export type GameModeType = 'FUEFER' | 'DRGSTAPLET'
+export type GameMode = 'FUEFER' | 'DRGSTAPLET'

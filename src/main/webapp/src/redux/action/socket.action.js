@@ -21,14 +21,14 @@ export type SocketAction =
   | SocketErrorAction
   | DisconnectSocketAction
 
-export const connectSocket = () => {
+export const connectSocket = (): ConnectSocketAction => {
   return { type: CONNECT_SOCKET }
 }
 
-export const socketError = (event: Event) => {
+export const socketError = (event: Event): SocketErrorAction => {
   return { type: SOCKET_ERROR, errorType: event.type }
 }
 
-export const disconnectSocket = () => {
+export const disconnectSocket = (): DisconnectSocketAction => {
   return { type: DISCONNECT_SOCKET }
 }
