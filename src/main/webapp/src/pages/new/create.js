@@ -9,7 +9,7 @@ import withUsernameOnly from '../../components/security/withUsernameOnly'
 import CreateGame from '../../components/setup/CreateGame'
 
 type createProps = {
-  dispatch: Action => void,
+  dispatch: (Action) => void,
 }
 
 const Create = (props: createProps) => {

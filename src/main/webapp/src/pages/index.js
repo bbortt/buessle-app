@@ -9,7 +9,7 @@ import type { ReduxState } from '../redux/reducer'
 import SelectName from '../components/setup/SelectName'
 
 type homeProps = {
-  dispatch: Action => any,
+  dispatch: (Action) => any,
   username: string,
 }
 

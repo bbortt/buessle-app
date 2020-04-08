@@ -11,7 +11,7 @@ import withValidGameOnly from '../../components/security/withValidGameOnly'
 import WaitingRoomPlayerInformation from '../../components/setup/WaitingRoomPlayerInformation'
 
 type waitProps = {
-  dispatch: Action => void,
+  dispatch: (Action) => void,
   userId: number,
   roomName: string,
   players: Player[],
