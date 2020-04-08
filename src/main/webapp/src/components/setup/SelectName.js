@@ -5,7 +5,7 @@ import type { Action } from 'redux'
 import { setUsername } from '../../redux/action'
 
 type selectNameProps = {
-  dispatch: Action => any,
+  dispatch: (Action) => any,
 }
 
 type selectNameState = {

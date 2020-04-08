@@ -12,7 +12,7 @@ import Router from 'next/router'
 import SelectGame from '../../components/setup/SelectGame'
 
 type newProps = {
-  dispatch: Action => any,
+  dispatch: (Action) => any,
   username: string,
 }
 

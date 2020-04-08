@@ -11,7 +11,7 @@ import withUsernameOnly from '../../components/security/withUsernameOnly'
 import JoinGame from '../../components/setup/JoinGame'
 
 type joinProps = {
-  dispatch: Action => void,
+  dispatch: (Action) => void,
   username: string,
   uuid: string,
   validateRoomError: string,

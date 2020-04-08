@@ -4,7 +4,7 @@ import React from 'react'
 import type { Action } from 'redux'
 
 type selectGameProps = {
-  dispatch: Action => any,
+  dispatch: (Action) => any,
   onJoinGame: () => void,
   onCreateGame: () => void,
 }
