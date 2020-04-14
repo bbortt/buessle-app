@@ -1,4 +1,4 @@
-const webpack = require('webpack')
+const webpack = require('webpack');
 
 const nextEnv = require('next-env');
 const dotenvLoad = require('dotenv-load');
@@ -9,7 +9,7 @@ const withNextEnv = nextEnv();
 
 module.exports = withNextEnv({
     publicRuntimeConfig: {
-        socketUrl: process.env.APPL_SOCKET_URL|| 'ws://localhost:8080',
+        socketUrl: process.env.APPL_SOCKET_URL || 'ws://localhost:8080',
         apiUrl: process.env.APPL_API_URL || 'http://localhost:8080',
     },
     webpack(config) {
@@ -18,8 +18,8 @@ module.exports = withNextEnv({
                 $: 'jquery',
                 jQuery: 'jquery',
             }),
-        )
+        );
 
         return config
     },
-})
+});

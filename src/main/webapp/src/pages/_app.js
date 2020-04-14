@@ -12,6 +12,10 @@ import CookieConsent from '../components/cookies/CookieConsent'
 
 require('./_app.scss')
 
+if (process.env.NODE_ENV !== 'production') {
+  require('expose-loader?reduxCli!../redux/cli')
+}
+
 export class RootClass extends App {
   componentDidMount() {
     updateFoundation()
