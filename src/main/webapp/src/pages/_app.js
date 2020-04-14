@@ -12,7 +12,9 @@ import CookieConsent from '../components/cookies/CookieConsent'
 
 require('./_app.scss')
 
+// Expose redux cli when developing
 if (process.env.NODE_ENV !== 'production') {
+  // $FlowFixMe
   require('expose-loader?reduxCli!../redux/cli')
 }
 
