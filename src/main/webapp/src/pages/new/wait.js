@@ -41,7 +41,12 @@ const Wait = (props: waitProps) => {
           </div>
           <div className="cell medium-offset-8 medium-2 grid-y"></div>
           {validated && userId === 0 ? (
-            <button type="button" className="button" onClick={startGame}>
+            <button
+              type="button"
+              className="button"
+              onClick={startGame}
+              disabled={players.length <= 1}
+            >
               Ds Spiel starte
             </button>
           ) : (

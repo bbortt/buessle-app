@@ -4,7 +4,7 @@ import { all, call, put, takeLatest } from 'redux-saga/effects'
 
 import getStore from '../getStore'
 import type { CreateGameAction } from '../action'
-import { CREATE_GAME, joinRoom } from '../action'
+import { addPlayer, CREATE_GAME, joinRoom } from '../action'
 
 import getConfig from 'next/config'
 
@@ -25,6 +25,7 @@ function* createGame(createGameAction: CreateGameAction) {
     player,
   })
   yield put(joinRoom(response.data, name, 0))
+  yield put(addPlayer(0, username))
 }
 
 function* createGameSaga(): SagaIterator {
