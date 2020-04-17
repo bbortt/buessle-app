@@ -3,8 +3,10 @@ import type { SagaIterator } from 'redux-saga'
 import { all, call, put, takeLatest } from 'redux-saga/effects'
 
 import getStore from '../getStore'
-import type { CreateGameAction } from '../action'
-import { addPlayer, CREATE_GAME, joinRoom } from '../action'
+import type { CreateGameAction, StartGameAction } from '../action'
+import { addPlayer, CREATE_GAME, joinRoom, START_GAME } from '../action'
+
+import { getSocket } from '../socket'
 
 import getConfig from 'next/config'
 
@@ -32,6 +34,14 @@ function* createGameSaga(): SagaIterator {
   yield takeLatest(CREATE_GAME, createGame)
 }
 
+function* startGame(startGameAction: StartGameAction) {
+  getSocket().send(JSON.stringify(startGameAction))
+}
+
+function* startGameSaga(): SagaIterator {
+  yield takeLatest(START_GAME, startGame)
+}
+
 export default function* gameSaga(): SagaIterator {
-  yield all([createGameSaga()])
+  yield all([createGameSaga(), startGameSaga()])
 }
