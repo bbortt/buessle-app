@@ -45,6 +45,7 @@ export class CookieConsent extends React.Component<{}, consentState> {
         className="reveal"
         data-reveal
         data-overlay="false"
+        data-options="closeOnClick:false;closeOnEsc:false;"
       >
         <h1>ACHTUNG GÜEZIS!</h1>
         <p>
