@@ -143,10 +143,10 @@ export class CreateGame extends React.Component<
               </div>
               <div className="cell auto"></div>
 
-              <div className="cell medium-offset-8 medium-2 grid-y">
+              <div className="cell medium-offset-2 medium-8">
                 <input
                   type="submit"
-                  className="button"
+                  className="button float-right"
                   value="Mal afange bitte."
                   onClick={this.handleSubmit}
                 />
