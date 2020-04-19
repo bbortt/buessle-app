@@ -2,23 +2,37 @@
 import getStore from '../getStore'
 
 import type { SagaIterator } from 'redux-saga'
-import { all, takeLatest } from 'redux-saga/effects'
+import { all, spawn, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import type {
   ConnectSocketAction,
   DisconnectSocketAction,
   RequestInitialPlayersAction,
+  StartGameAction,
 } from '../action'
 import {
   CONNECT_SOCKET,
   DISCONNECT_SOCKET,
   REQUEST_INITIAL_PLAYERS,
   socketError,
+  START_GAME,
 } from '../action'
 
 import { getSocket } from '../socket'
 
-function connectSocket(connectSocketAction: ConnectSocketAction) {
+type SocketSagaAction = StartGameAction
+
+function* sendOverSocket(socketSaga: SocketSagaAction) {
+  getSocket().send(JSON.stringify(socketSaga))
+}
+
+function* sendOverSocketSaga() {
+  while (getSocket().readyState === WebSocket.OPEN) {
+    yield takeEvery([START_GAME], sendOverSocket)
+  }
+}
+
+function* connectSocket(connectSocketAction: ConnectSocketAction) {
   const socket = getSocket()
 
   socket.addEventListener('error', (event: Event) => {
@@ -29,6 +43,8 @@ function connectSocket(connectSocketAction: ConnectSocketAction) {
     const { topic, payload } = (event.data: any)
     getStore().dispatch({ type: topic, payload })
   })
+
+  yield spawn(sendOverSocketSaga)
 }
 
 function* connectSocketSaga(): SagaIterator {

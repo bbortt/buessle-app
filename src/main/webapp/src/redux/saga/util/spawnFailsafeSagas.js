@@ -2,7 +2,7 @@
 import type { SagaIterator } from 'redux-saga'
 import { all, call, spawn } from 'redux-saga/effects'
 
-export function* spawnFailsafeSagas(sagas: SagaIterator[]) {
+export function* spawnFailsafeSagas(sagas: SagaIterator[]): SagaIterator {
   yield all(
     sagas.map((saga: SagaIterator) =>
       spawn(function* () {
