@@ -2,7 +2,7 @@
 import getStore from '../getStore'
 
 import type { SagaIterator } from 'redux-saga'
-import { all, spawn, takeEvery, takeLatest } from 'redux-saga/effects'
+import { all, call, spawn, takeEvery, takeLatest } from 'redux-saga/effects'
 
 import type {
   ConnectSocketAction,
@@ -23,7 +23,7 @@ import { getSocket } from '../socket'
 type SocketSagaAction = StartGameAction
 
 function* sendOverSocket(socketSaga: SocketSagaAction) {
-  getSocket().send(JSON.stringify(socketSaga))
+  yield call(getSocket().send, JSON.stringify(socketSaga))
 }
 
 function* sendOverSocketSaga() {
