@@ -4,6 +4,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import type { Action } from 'redux'
 import type { ReduxState } from '../../redux/reducer'
+import { startGame as startGameFromAction } from '../../redux/action'
 
 import type { Player } from '../../domain/Player.type'
 
@@ -18,8 +19,8 @@ type waitProps = {
   validated: boolean,
 }
 
-const startGame = () => {
-  // TODO: send start game event via socket
+const startGame = (dispatch: (Action) => void) => () => {
+  dispatch(startGameFromAction())
 }
 
 const Wait = (props: waitProps) => {
@@ -39,12 +40,12 @@ const Wait = (props: waitProps) => {
           <div className="cell medium-4">
             Game Informatione.. Die chöme no! (Je nach Spielmodus :)
           </div>
-          <div className="cell medium-offset-8 medium-2 grid-y"></div>
+          <div className="cell medium-offset-8 medium-2 grid-y" />
           {validated && userId === 0 ? (
             <button
               type="button"
               className="button"
-              onClick={startGame}
+              onClick={startGame(dispatch)}
               disabled={players.length <= 1}
             >
               Ds Spiel starte
