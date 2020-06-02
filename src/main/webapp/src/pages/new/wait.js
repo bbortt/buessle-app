@@ -4,12 +4,12 @@ import React from 'react'
 import { connect } from 'react-redux'
 import type { Action } from 'redux'
 import type { ReduxState } from '../../redux/reducer'
-import { startGame as startGameFromAction } from '../../redux/action'
 
 import type { Player } from '../../domain/Player.type'
 
 import withValidGameOnly from '../../components/security/withValidGameOnly'
-import WaitingRoomPlayerInformation from '../../components/setup/WaitingRoomPlayerInformation'
+
+import WaitingRoom from '../../components/setup/waitingroom'
 
 type waitProps = {
   dispatch: (Action) => void,
@@ -19,42 +19,21 @@ type waitProps = {
   validated: boolean,
 }
 
-const startGame = (dispatch: (Action) => void) => () => {
-  dispatch(startGameFromAction())
-}
-
 const Wait = (props: waitProps) => {
   const { dispatch, userId, roomName, players, validated } = props
 
   return (
-    <div id="new-join">
+    <div id="new-wait">
       <h1>Rum "{roomName}"</h1>
 
       <br />
 
-      <div className="grid-container fluid">
-        <div className="grid-x grid-margin-x">
-          <div className="cell medium-offset-2 medium-4">
-            <WaitingRoomPlayerInformation userId={userId} players={players} />
-          </div>
-          <div className="cell medium-4">
-            Game Informatione.. Die chöme no! (Je nach Spielmodus :)
-          </div>
-          <div className="cell medium-offset-8 medium-2 grid-y" />
-          {validated && userId === 0 ? (
-            <button
-              type="button"
-              className="button"
-              onClick={startGame(dispatch)}
-              disabled={players.length <= 1}
-            >
-              Ds Spiel starte
-            </button>
-          ) : (
-            <span>Mir warte no uf anderi Fucks..</span>
-          )}
-        </div>
-      </div>
+      <WaitingRoom
+        dispatch={dispatch}
+        players={players}
+        userId={userId}
+        validated={validated}
+      />
     </div>
   )
 }

@@ -26,7 +26,7 @@ const Join = (props: joinProps) => {
 
   return (
     <div id="new-join">
-      <h1>diner Kollege (weller?) warte sicher..</h1>
+      <h1>diner Kollege (weller PHA?) warte sicher..</h1>
 
       <br />
 

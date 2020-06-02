@@ -1,14 +1,14 @@
 // @flow
 import React from 'react'
 
-import type { Player } from '../../domain/Player.type'
+import type { Player } from '../../../domain/Player.type'
 
 type playerInformationProps = {
   userId: number,
   players: Player[],
 }
 
-export const WaitingRoomPlayerInformation = (props: playerInformationProps) => {
+export const PlayerInformation = (props: playerInformationProps) => {
   const { userId, players } = props
 
   return (
@@ -32,4 +32,4 @@ export const WaitingRoomPlayerInformation = (props: playerInformationProps) => {
   )
 }
 
-export default WaitingRoomPlayerInformation
+export default PlayerInformation
