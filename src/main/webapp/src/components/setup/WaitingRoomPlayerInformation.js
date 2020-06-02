@@ -20,7 +20,7 @@ export const WaitingRoomPlayerInformation = (props: playerInformationProps) => {
       </thead>
       <tbody>
         {players.map((player: Player) => (
-          <tr>
+          <tr key={`player-${player.id}-name`}>
             <td>
               {player.name}
               {player.id === userId ? ' (ig)' : ''}

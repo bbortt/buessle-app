@@ -34,7 +34,11 @@ export default (store: Store<ReduxState>) => (
   const result = next(action)
 
   if (typeof window !== 'undefined') {
-    cookies.set(REDUX_COOKIE_NAME, prepareReduxStateForCookie(store.getState()))
+    cookies.set(
+      REDUX_COOKIE_NAME,
+      prepareReduxStateForCookie(store.getState()),
+      { path: '/' }
+    )
   }
 
   return result

@@ -30,8 +30,11 @@ function* validateRoom(validateRoomAction: ValidateRoomAction) {
       username,
     })
     const { name, userId } = response.data
-    yield put(joinRoomFromAction(uuid, name, userId))
-    yield put(addPlayer(userId, username))
+
+    yield all([
+      put(joinRoomFromAction(uuid, name, userId)),
+      put(addPlayer(userId, username)),
+    ])
   } catch (error) {
     // TODO: Receive error code from backend
     yield put(validateRoomFailed(uuid))

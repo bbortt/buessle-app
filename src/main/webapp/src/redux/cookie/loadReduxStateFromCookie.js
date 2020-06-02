@@ -9,7 +9,7 @@ const cookies = new Cookies()
 
 export const loadReduxStateFromCookie = (): ReduxState | null => {
   if (typeof window !== 'undefined') {
-    return cookies.get(REDUX_COOKIE_NAME) || {}
+    return cookies.get(REDUX_COOKIE_NAME, { path: '/' }) || {}
   }
 
   return {}
