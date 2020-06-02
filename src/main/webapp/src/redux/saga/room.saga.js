@@ -46,9 +46,11 @@ function* validateRoomSaga(): SagaIterator {
 }
 
 function* joinRoom(joinRoomAction: JoinRoomAction) {
-  yield call(Router.push, '/new/wait')
-  yield put(connectSocket())
-  yield put(requestInitialPlayers())
+  yield all([
+    call(Router.push, '/new/wait'),
+    put(connectSocket()),
+    put(requestInitialPlayers()),
+  ])
 }
 
 function* joinRoomSaga(): SagaIterator {

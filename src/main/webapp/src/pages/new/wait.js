@@ -40,7 +40,7 @@ const Wait = (props: waitProps) => {
           <div className="cell medium-4">
             Game Informatione.. Die chöme no! (Je nach Spielmodus :)
           </div>
-          <div className="cell medium-offset-8 medium-2 grid-y"></div>
+          <div className="cell medium-offset-8 medium-2 grid-y" />
           {validated && userId === 0 ? (
             <button
               type="button"
