@@ -45,6 +45,9 @@ It is really just a bunch of JavaScript functions. So, in order to get started t
 of your browser (when navigated to [http://localhost:3000](http://localhost:3000)). This will list all available
 commands.
 
+# Hat Tips
+* To [@einaregilsson](https://github.com/einaregilsson) for the SVG cards in `public/cards`.
+
 # Learn More
 
 To learn more about Next.js, take a look at the following resources:
