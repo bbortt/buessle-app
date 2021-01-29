@@ -1,3 +1,7 @@
 type Query {
+  hello: Hello
+}
 
+type Hello {
+  world: String
 }

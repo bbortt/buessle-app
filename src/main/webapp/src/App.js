@@ -1,26 +1,26 @@
-import logo from "./logo.svg";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { fetchHello } from "./redux/action/hello.action";
 
 import "./App.scss";
 
-function App() {
+export const App = () => {
+  const dispatch = useDispatch();
+  const { world } = useSelector((state) => ({
+    world: state.hello.world,
+  }));
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        hello {world ? `${world}!` : "..?"}
+        <br />
+        <br />
+        <button onClick={() => dispatch(fetchHello())}>load data</button>
       </header>
     </div>
   );
-}
+};
 
 export default App;
