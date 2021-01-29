@@ -1,6 +1,6 @@
-import { combineEpics } from "redux-observable";
+import { combineEpics } from 'redux-observable';
 
-import { helloFetchEpic } from "./hello.epic";
+import { helloFetchEpic } from './hello.epic';
 
 const epics = [helloFetchEpic];
 

@@ -1,10 +1,10 @@
-import { ofType } from "redux-observable";
-import { mergeMap } from "rxjs/operators";
+import { ofType } from 'redux-observable';
+import { mergeMap } from 'rxjs/operators';
 
-import { gql } from "@apollo/client";
+import { gql } from '@apollo/client';
 
-import { HELLO_FETCH, setHello } from "../action/hello.action";
-import { apolloClient } from "../../apollo-client";
+import { HELLO_FETCH, setHello } from '../action/hello.action';
+import { apolloClient } from '../../apollo-client';
 
 const HELLO_FETCH_QUERY = gql`
   {

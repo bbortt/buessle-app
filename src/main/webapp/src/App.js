@@ -1,9 +1,9 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { fetchHello } from "./redux/action/hello.action";
+import { fetchHello } from './redux/action/hello.action';
 
-import "./App.scss";
+import './App.scss';
 
 export const App = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ export const App = () => {
   return (
     <div className="App">
       <header>
-        hello {world ? `${world}!` : "..?"}
+        hello {world ? `${world}!` : '..?'}
         <br />
         <br />
         <button onClick={() => dispatch(fetchHello())}>load data</button>

@@ -1,8 +1,8 @@
-import { combineReducers } from "redux";
+import { combineReducers } from 'redux';
 
-import { connectRouter } from "connected-react-router";
+import { connectRouter } from 'connected-react-router';
 
-import helloReducer from "./hello.reducer";
+import helloReducer from './hello.reducer';
 
 export default (history) => {
   return combineReducers({

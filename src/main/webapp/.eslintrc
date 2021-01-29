@@ -1,10 +1,21 @@
 {
   "extends": [
     "react-app",
-    "react-app/jest"
+    "react-app/jest",
+    "plugin:prettier/recommended",
+    "prettier/flowtype",
+    "prettier/react"
   ],
+  "plugins": [
+    "flowtype",
+    "prettier"
+  ],
+  "env": {
+    "jest": true
+  },
   "rules": {
     "import/no-anonymous-default-export": "off",
+    "prettier/prettier": "error",
     "quotes": [
       "error",
       "single"

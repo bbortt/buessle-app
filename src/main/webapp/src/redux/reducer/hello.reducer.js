@@ -1,4 +1,4 @@
-import { HELLO_SET } from "../action/hello.action";
+import { HELLO_SET } from '../action/hello.action';
 
 const initialHelloState = {};
 
