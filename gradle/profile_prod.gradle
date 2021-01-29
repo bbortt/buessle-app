@@ -1,0 +1,23 @@
+node {
+  version = "${node_version}"
+  npmVersion = "${npm_version}"
+  nodeModulesDir = file("${project.projectDir}/src/main/webapp")
+}
+
+task webpack_test(type: NpmTask, dependsOn: "npmInstall") {
+  args = ["run", "test:ci"]
+  execOverrides {
+    it.workingDir = file("${project.projectDir}/src/main/webapp")
+  }
+}
+
+task webpack(type: NpmTask, dependsOn: "npmInstall") {
+  args = ["run", "build"]
+  execOverrides {
+    it.workingDir = file("${project.projectDir}/src/main/webapp")
+  }
+}
+webpack.dependsOn webpack_test
+
+processResources.dependsOn webpack
+bootJar.dependsOn processResources

@@ -1,0 +1,81 @@
+buildscript {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    gradlePluginPortal()
+    maven { url "https://repo.spring.io/plugins-release" }
+  }
+}
+
+plugins {
+  id 'java'
+  id 'org.springframework.boot' version '2.4.2'
+  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+  id "com.github.node-gradle.node"
+}
+
+group = 'io.github.bbortt'
+version = "${version}"
+description = "I Zite vor Isolation wettme doch zwüschdüri gern mit de Kollege s Büssi zwicke!"
+
+sourceCompatibility = '15'
+assert System.properties["java.specification.version"] == "11" || "12" || "13" || "14" || "15"
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  jcenter()
+}
+
+dependencies {
+  implementation 'org.springframework.boot:spring-boot-starter-actuator'
+  implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  implementation 'org.springframework.session:spring-session-data-redis'
+  developmentOnly 'org.springframework.boot:spring-boot-devtools'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+  testImplementation 'io.projectreactor:reactor-test'
+}
+
+if (project.hasProperty("prod")) {
+  apply from: "gradle/profile_prod.gradle"
+}
+
+clean {
+  delete "${project.projectDir}/src/main/webapp/build"
+}
+
+springBoot {
+  mainClassName = "io.github.bbortt.buessle.BuessleApplication"
+}
+
+if (project.hasProperty("nodeInstall")) {
+  node {
+    version = "${node_version}"
+    npmVersion = "${npm_version}"
+    download = true
+  }
+}
+
+processResources {
+  from('src/main/webapp/build/') {
+    into 'public'
+  }
+}
+
+test {
+  useJUnitPlatform()
+  exclude "**/*IT*", "**/*IntTest*", "**/*IntegrationTest*"
+}
+bootJar.dependsOn test
+
+task integrationTest(type: Test) {
+  useJUnitPlatform()
+  group = "verification"
+  include "**/*IT*", "**/*IntTest*", "**/*IntegrationTest*"
+}
+check.dependsOn integrationTest
+
+wrapper {
+  gradleVersion = "6.7"
+}
