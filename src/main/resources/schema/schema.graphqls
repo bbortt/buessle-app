@@ -1,7 +1,11 @@
 type Query {
-  hello: Hello
+  boardByUUID(uuid: String!): Board
 }
 
-type Hello {
-  world: String
+type Mutation {
+  createBoard(name: String!): Board
+}
+
+type Board {
+  uuid: String
 }

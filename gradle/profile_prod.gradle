@@ -4,6 +4,13 @@ node {
   nodeModulesDir = file("${project.projectDir}/src/main/webapp")
 }
 
+task lint(type: NpmTask, dependsOn: "npmInstall") {
+  args = ["run", "lint"]
+  execOverrides {
+    it.workingDir = file("${project.projectDir}/src/main/webapp")
+  }
+}
+
 task flow_check(type: NpmTask, dependsOn: "npmInstall") {
   args = ["run", "flow", "check"]
   execOverrides {
@@ -24,6 +31,7 @@ task webpack(type: NpmTask, dependsOn: "npmInstall") {
     it.workingDir = file("${project.projectDir}/src/main/webapp")
   }
 }
+webpack.dependsOn lint
 webpack.dependsOn flow_check
 webpack.dependsOn webpack_test
 

@@ -6,7 +6,7 @@ import store, { history } from './redux/store';
 
 import { ConnectedRouter } from 'connected-react-router';
 
-import App from './App';
+import Router from './Router';
 
 import reportWebVitals from './reportWebVitals';
 
@@ -16,9 +16,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <div>
-          <App />
-        </div>
+        <Router />
       </ConnectedRouter>
     </Provider>
     ,{' '}

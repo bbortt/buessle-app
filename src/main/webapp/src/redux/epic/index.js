@@ -1,7 +1,9 @@
+// @flow
+import type { Action } from 'redux';
 import { combineEpics } from 'redux-observable';
 
-import { helloFetchEpic } from './hello.epic';
+import { createLobbyEpic } from './lobby.epic';
 
-const epics = [helloFetchEpic];
+const epics = [createLobbyEpic];
 
-export default combineEpics(...epics);
+export default (combineEpics(...epics): Action<any>[]);
