@@ -8,17 +8,17 @@ buildscript {
 }
 
 plugins {
-  id 'java'
-  id 'org.springframework.boot' version '2.4.2'
-  id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+  id "java"
+  id "org.springframework.boot" version "2.4.2"
+  id "io.spring.dependency-management" version "1.0.11.RELEASE"
   id "com.github.node-gradle.node"
 }
 
-group = 'io.github.bbortt'
+group = "io.github.bbortt"
 version = "${version}"
 description = "I Zite vor Isolation wettme doch zwüschdüri gern mit de Kollege s Büssi zwicke!"
 
-sourceCompatibility = '15'
+sourceCompatibility = "15"
 assert System.properties["java.specification.version"] == "11" || "12" || "13" || "14" || "15"
 
 repositories {
@@ -28,13 +28,14 @@ repositories {
 }
 
 dependencies {
-  implementation 'org.springframework.boot:spring-boot-starter-actuator'
-  implementation 'org.springframework.boot:spring-boot-starter-data-redis'
-  implementation 'org.springframework.boot:spring-boot-starter-web'
-  implementation 'org.springframework.session:spring-session-data-redis'
-  developmentOnly 'org.springframework.boot:spring-boot-devtools'
-  testImplementation 'org.springframework.boot:spring-boot-starter-test'
-  testImplementation 'io.projectreactor:reactor-test'
+  implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter:${graphql_dgs_spring_boot_starter_version}"
+  implementation "org.springframework.boot:spring-boot-starter-actuator"
+  implementation "org.springframework.boot:spring-boot-starter-data-redis"
+  implementation "org.springframework.boot:spring-boot-starter-web"
+  implementation "org.springframework.session:spring-session-data-redis"
+  developmentOnly "org.springframework.boot:spring-boot-devtools"
+  testImplementation "org.springframework.boot:spring-boot-starter-test"
+  testImplementation "io.projectreactor:reactor-test"
 }
 
 if (project.hasProperty("prod")) {
@@ -58,8 +59,8 @@ if (project.hasProperty("nodeInstall")) {
 }
 
 processResources {
-  from('src/main/webapp/build/') {
-    into 'public'
+  from("src/main/webapp/build/") {
+    into "public"
   }
 }
 
