@@ -1,0 +1,5 @@
+mutation CreateBoard($name: String!) {
+  createBoard(name: $name) {
+    uuid
+  }
+}

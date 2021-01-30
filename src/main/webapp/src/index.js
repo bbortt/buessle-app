@@ -16,7 +16,9 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <ConnectedRouter history={history}>
-        <Router />
+        <div className="container">
+          <Router />
+        </div>
       </ConnectedRouter>
     </Provider>
     ,{' '}

@@ -1,0 +1,5 @@
+mutation RegisterPlayer($name: String!) {
+  registerPlayer(name: $name) {
+    name
+  }
+}

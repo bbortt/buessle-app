@@ -3,9 +3,15 @@ type Query {
 }
 
 type Mutation {
-  createBoard(name: String!): Board
+  createBoard(name: String!): Board!
+  registerPlayer(name: String!): Player!
 }
 
 type Board {
-  uuid: String
+  uuid: ID!
+  name: String!
+}
+
+type Player {
+  name: String!
 }

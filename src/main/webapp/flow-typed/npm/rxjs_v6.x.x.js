@@ -47,7 +47,10 @@ declare type rxjs$ObservableInput<T> =
   | Array<T>
   | Iterable<T>;
 
-declare type rxjs$InteropObservable<T> = { [string | mixed]: () => rxjs$Subscribable<T>, ... };
+declare type rxjs$InteropObservable<T> = {
+  [string | mixed]: () => rxjs$Subscribable<T>,
+  ...
+};
 /** OBSERVER INTERFACES */
 declare interface rxjs$NextObserver<T> {
   closed?: boolean;
@@ -120,10 +123,7 @@ declare class rxjs$Observable<T> implements rxjs$Subscribable<T> {
   ): rxjs$Subscription;
   // @deprecated  This is an internal implementation detail, do not use.
   _trySubscribe(sink: rxjs$Subscriber<T>): rxjs$TeardownLogic;
-  forEach(
-    next: (value: T) => void,
-    promiseCtor?: any
-  ): Promise<void>;
+  forEach(next: (value: T) => void, promiseCtor?: any): Promise<void>;
   // @internal  This is an internal implementation detail, do not use.
   _subscribe(subscriber: rxjs$Subscriber<any>): rxjs$TeardownLogic;
   // @deprecated  In favor of iif creation function: import { iif } from 'rxjs';
@@ -203,7 +203,7 @@ declare class rxjs$Observable<T> implements rxjs$Subscribable<T> {
     op8: rxjs$OperatorFunction<G, H>,
     op9: rxjs$OperatorFunction<H, I>,
     ...operations: rxjs$OperatorFunction<any, any>[]
-  ): rxjs$Observable<{...}>;
+  ): rxjs$Observable<{ ... }>;
   toPromise<T>(): Promise<T>;
   toPromise<T>(PromiseCtor: typeof Promise): Promise<T>;
   toPromise<T>(PromiseCtor: any): Promise<T>;
@@ -226,7 +226,8 @@ declare interface rxjs$Operator<T, R> {
   call(subscriber: rxjs$Subscriber<R>, source: any): rxjs$TeardownLogic;
 }
 
-declare class rxjs$Subscriber<T> extends rxjs$Subscription
+declare class rxjs$Subscriber<T>
+  extends rxjs$Subscription
   implements rxjs$Observer<T> {
   static create<T>(
     next?: (x?: T) => void,
@@ -276,7 +277,8 @@ declare class rxjs$ConnectableObservable<T> extends rxjs$Observable<T> {
   refCount(): rxjs$Observable<T>;
 }
 
-declare class rxjs$Subject<T> extends rxjs$Observable<T>
+declare class rxjs$Subject<T>
+  extends rxjs$Observable<T>
   implements rxjs$SubscriptionLike {
   observers: rxjs$Observer<T>[];
   closed: boolean;
@@ -350,7 +352,7 @@ declare function rxjs$iif<T, F>(
   falseResult?: rxjs$SubscribableOrPromise<F>
 ): rxjs$Observable<T | F>;
 
-declare module "rxjs" {
+declare module 'rxjs' {
   declare module.exports: {
     Observable: typeof rxjs$Observable,
     Subscriber: typeof rxjs$Subscriber,
@@ -445,7 +447,7 @@ declare module "rxjs" {
         fn8: rxjs$UnaryFunction<G, H>,
         fn9: rxjs$UnaryFunction<H, I>,
         ...fns: rxjs$UnaryFunction<any, any>[]
-      ) => rxjs$UnaryFunction<T, {...}>),
+      ) => rxjs$UnaryFunction<T, { ... }>),
     noop(): void,
     identity<T>(x: T): T,
     isObservable<T>(obj: any): boolean,
@@ -1869,7 +1871,7 @@ declare module "rxjs" {
   }
 }
 
-declare module "rxjs/operators" {
+declare module 'rxjs/operators' {
   declare export function audit<T>(
     durationSelector: (value: T) => rxjs$SubscribableOrPromise<mixed>
   ): rxjs$MonoTypeOperatorFunction<T>;
@@ -3216,7 +3218,7 @@ declare module "rxjs/operators" {
   ): rxjs$Observable<mixed>;
 }
 
-declare module "rxjs/ajax" {
+declare module 'rxjs/ajax' {
   declare export interface AjaxRequest {
     url?: string;
     body?: any;
@@ -3284,7 +3286,7 @@ declare module "rxjs/ajax" {
   declare export var ajax: AjaxCreationMethod;
 }
 
-declare module "rxjs/webSocket" {
+declare module 'rxjs/webSocket' {
   declare type WebSocketMessage = string | ArrayBuffer | Blob;
 
   declare export interface WebSocketSubjectConfig<T> {
@@ -3297,8 +3299,11 @@ declare module "rxjs/webSocket" {
     openObserver?: rxjs$NextObserver<Event>;
     closeObserver?: rxjs$NextObserver<CloseEvent>;
     closingObserver?: rxjs$NextObserver<void>;
-    WebSocketCtor?: { new(url: string, protocols?: string | string[]): WebSocket, ... };
-    binaryType?: "blob" | "arraybuffer";
+    WebSocketCtor?: {
+      new(url: string, protocols?: string | string[]): WebSocket,
+      ...
+    };
+    binaryType?: 'blob' | 'arraybuffer';
   }
 
   declare class AnonymousSubject<T> extends rxjs$Subject<T> {

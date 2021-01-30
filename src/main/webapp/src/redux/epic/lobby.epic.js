@@ -5,13 +5,13 @@ import { ofType } from 'redux-observable';
 import type { Observable } from 'rxjs';
 import { mergeMap } from 'rxjs/operators';
 
-import { gql } from '@apollo/client';
-
+import { loader } from 'graphql.macro';
 import { apolloClient } from '../../apollo-client';
 
 import type {
   LobbyCreateAction,
   LobbyJoinAction,
+  LobbyJoinFailedAction,
 } from '../action/lobby.action';
 import {
   joinLobby,
@@ -19,28 +19,23 @@ import {
   LOBBY_CREATE,
 } from '../action/lobby.action';
 
-import type Board from '../../model/board.type';
-
-const MUTATION_CREATE_BOARD = gql`
-  mutation CreateBoard($name: String!) {
-    createBoard(name: $name) {
-      uuid
-    }
-  }
-`;
+const createBoard = loader('../../graphql/mutation_create-board.graphql');
+type CreateBoardResponse = { createBoard: { uuid: string } };
 
 export const createLobbyEpic = (
   action: Observable<Action<LobbyCreateAction>>
-): Observable<Action<LobbyJoinAction>> =>
+): Observable<Action<LobbyJoinAction | LobbyJoinFailedAction>> =>
   action.pipe(
     ofType(LOBBY_CREATE),
     mergeMap((action: LobbyCreateAction) =>
       apolloClient
         .mutate({
-          mutation: MUTATION_CREATE_BOARD,
+          mutation: createBoard,
           variables: { name: action.payload.name },
         })
-        .then((response: { data: Board }) => joinLobby(response.data.uuid))
+        .then((response: { data: CreateBoardResponse }) =>
+          joinLobby(response.data.createBoard.uuid)
+        )
         .catch((error: any) => joinLobbyFailed(action.payload.name, error))
     )
   );

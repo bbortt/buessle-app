@@ -21,6 +21,7 @@
     "@testing-library/user-event": "^12.6.2",
     "connected-react-router": "^6.8.0",
     "graphql": "^15.5.0",
+    "graphql.macro": "^1.4.2",
     "history": "^5.0.0",
     "node-sass": "^4.0.0",
     "react": "^17.0.1",

@@ -1,13 +1,52 @@
-import { useState } from 'react';
+// @flow
+import React, { useState } from 'react';
+import type { Element } from 'react';
 
-export const NewGameForm = () => {
+import { useDispatch } from 'react-redux';
+
+import { createLobby, joinLobby } from '../redux/action/lobby.action';
+import { initializePlayer } from '../redux/action/player.action';
+
+export const NewGameForm = (): Element<'div'> => {
   const [name, setName] = useState('');
   const [createNew, setCreateNew] = useState(true);
   const [newGameName, setNewGameName] = useState('');
   const [code, setCode] = useState('');
+  const [touched, setTouched] = useState(false);
+  const [errors, setErrors] = useState([]);
+
+  const dispatch = useDispatch();
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
+    if (errors.length > 0) {
+      return;
+    }
+
+    dispatch(initializePlayer(name));
+    if (createNew) {
+      dispatch(createLobby(newGameName));
+    } else {
+      dispatch(joinLobby(code));
+    }
+  };
+
+  const validateForm = (): boolean => {
+    const errors = [];
+    if (name.length <= 0) {
+      errors.push('Dr Namä vergesse!');
+    }
+    if (createNew && newGameName.length <= 0) {
+      errors.push('Dr Gäim Name vergesse!');
+    }
+    if (!createNew && code.length <= 0) {
+      errors.push('Dr Code vergesse!');
+    }
+    if (!touched) {
+      setTouched(!touched);
+    }
+    setErrors(errors);
   };
 
   const handleChange = (event) => {
@@ -26,6 +65,8 @@ export const NewGameForm = () => {
         break;
       default:
     }
+
+    validateForm();
   };
 
   return (
@@ -51,7 +92,7 @@ export const NewGameForm = () => {
             id="field_new"
             name="createNew"
             value="new"
-            onClick={handleChange}
+            onChange={handleChange}
             checked={createNew ? 'checked' : ''}
           />
         </label>
@@ -65,7 +106,7 @@ export const NewGameForm = () => {
             id="field_existing"
             name="createNew"
             value="existing"
-            onClick={handleChange}
+            onChange={handleChange}
             checked={!createNew ? 'checked' : ''}
           />
         </label>
@@ -104,7 +145,11 @@ export const NewGameForm = () => {
           </div>
         )}
 
-        <input type="submit" value="Absände" />
+        <input
+          type="submit"
+          value="Absände"
+          disabled={!touched || errors.length !== 0}
+        />
       </form>
     </div>
   );

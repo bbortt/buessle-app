@@ -1,21 +1,21 @@
 // flow-typed signature: 7ed5e46fdc31c07a467716683bc9e52c
 // flow-typed version: 5f4b3cb313/react-router-dom_v5.x.x/flow_>=v0.104.x
 
-declare module "react-router-dom" {
+declare module 'react-router-dom' {
   declare export var BrowserRouter: React$ComponentType<{|
     basename?: string,
     forceRefresh?: boolean,
     getUserConfirmation?: GetUserConfirmation,
     keyLength?: number,
-    children?: React$Node
-  |}>
+    children?: React$Node,
+  |}>;
 
   declare export var HashRouter: React$ComponentType<{|
     basename?: string,
     getUserConfirmation?: GetUserConfirmation,
-    hashType?: "slash" | "noslash" | "hashbang",
-    children?: React$Node
-  |}>
+    hashType?: 'slash' | 'noslash' | 'hashbang',
+    children?: React$Node,
+  |}>;
 
   declare export var Link: React$ComponentType<{
     +className?: string,
@@ -23,7 +23,7 @@ declare module "react-router-dom" {
     +replace?: boolean,
     +children?: React$Node,
     ...
-  }>
+  }>;
 
   declare export var NavLink: React$ComponentType<{
     +to: string | LocationShape,
@@ -36,7 +36,7 @@ declare module "react-router-dom" {
     +exact?: boolean,
     +strict?: boolean,
     ...
-  }>
+  }>;
 
   // NOTE: Below are duplicated from react-router. If updating these, please
   // update the react-router and react-router-native types as well.
@@ -57,7 +57,7 @@ declare module "react-router-dom" {
     ...
   };
 
-  declare export type HistoryAction = "PUSH" | "REPLACE" | "POP";
+  declare export type HistoryAction = 'PUSH' | 'REPLACE' | 'POP';
 
   declare export type RouterHistory = {
     length: number,
@@ -73,7 +73,9 @@ declare module "react-router-dom" {
     goForward(): void,
     canGo?: (n: number) => boolean,
     block(
-      callback: string | (location: Location, action: HistoryAction) => ?string
+      callback:
+        | string
+        | ((location: Location, action: HistoryAction) => ?string)
     ): () => void,
     ...
   };
@@ -90,7 +92,7 @@ declare module "react-router-dom" {
     history: RouterHistory,
     location: Location,
     match: Match,
-    staticContext?: StaticRouterContext
+    staticContext?: StaticRouterContext,
   |};
 
   declare type ContextRouterVoid = {
@@ -112,34 +114,34 @@ declare module "react-router-dom" {
     basename?: string,
     location?: string | Location,
     context: StaticRouterContext,
-    children?: React$Node
-  |}>
+    children?: React$Node,
+  |}>;
 
   declare export var MemoryRouter: React$ComponentType<{|
     initialEntries?: Array<LocationShape | string>,
     initialIndex?: number,
     getUserConfirmation?: GetUserConfirmation,
     keyLength?: number,
-    children?: React$Node
-  |}>
+    children?: React$Node,
+  |}>;
 
   declare export var Router: React$ComponentType<{|
     history: RouterHistory,
-    children?: React$Node
-  |}>
+    children?: React$Node,
+  |}>;
 
   declare export var Prompt: React$ComponentType<{|
     message: string | ((location: Location) => string | boolean),
-    when?: boolean
-  |}>
+    when?: boolean,
+  |}>;
 
   declare export var Redirect: React$ComponentType<{|
     to: string | LocationShape,
     push?: boolean,
     from?: string,
     exact?: boolean,
-    strict?: boolean
-  |}>
+    strict?: boolean,
+  |}>;
 
   declare export var Route: React$ComponentType<{|
     component?: React$ComponentType<*>,
@@ -149,17 +151,22 @@ declare module "react-router-dom" {
     exact?: boolean,
     strict?: boolean,
     location?: LocationShape,
-    sensitive?: boolean
-  |}>
+    sensitive?: boolean,
+  |}>;
 
   declare export var Switch: React$ComponentType<{|
     children?: React$Node,
-    location?: Location
-  |}>
+    location?: Location,
+  |}>;
 
-  declare export function withRouter<Props: {...}, Component: React$ComponentType<Props>>(
+  declare export function withRouter<
+    Props: { ... },
+    Component: React$ComponentType<Props>
+  >(
     WrappedComponent: Component
-  ): React$ComponentType<$Diff<React$ElementConfig<Component>, ContextRouterVoid>>;
+  ): React$ComponentType<
+    $Diff<React$ElementConfig<Component>, ContextRouterVoid>
+  >;
 
   declare type MatchPathOptions = {
     path?: string | string[],
@@ -176,9 +183,20 @@ declare module "react-router-dom" {
   ): null | Match;
 
   declare export function useHistory(): $PropertyType<ContextRouter, 'history'>;
-  declare export function useLocation(): $PropertyType<ContextRouter, 'location'>;
-  declare export function useParams(): $PropertyType<$PropertyType<ContextRouter, 'match'>, 'params'>;
-  declare export function useRouteMatch(path?: MatchPathOptions | string | string[]): $PropertyType<ContextRouter, 'match'>;
+  declare export function useLocation(): $PropertyType<
+    ContextRouter,
+    'location'
+  >;
+  declare export function useParams(): $PropertyType<
+    $PropertyType<ContextRouter, 'match'>,
+    'params'
+  >;
+  declare export function useRouteMatch(
+    path?: MatchPathOptions | string | string[]
+  ): $PropertyType<ContextRouter, 'match'>;
 
-  declare export function generatePath(pattern?: string, params?: { +[string]: mixed, ... }): string;
+  declare export function generatePath(
+    pattern?: string,
+    params?: { +[string]: mixed, ... }
+  ): string;
 }
