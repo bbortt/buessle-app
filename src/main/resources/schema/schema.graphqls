@@ -1,9 +1,10 @@
 type Query {
-  boardByUUID(uuid: String!): Board
+  boardByUUID(uuid: ID!): Board
 }
 
 type Mutation {
   createBoard(name: String!): Board!
+  joinBoard(uuid: ID!): Board!
   registerPlayer(name: String!): Player!
 }
 

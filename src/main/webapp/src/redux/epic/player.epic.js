@@ -2,8 +2,9 @@
 import type { Action } from 'redux';
 import { ofType } from 'redux-observable';
 
+import { from, of } from 'rxjs';
 import type { Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { catchError, mergeMap, tap } from 'rxjs/operators';
 
 import { loader } from 'graphql.macro';
 import { apolloClient } from '../../apollo-client';
@@ -18,26 +19,35 @@ import type {
   PlayerInitializeFailedAction,
   PlayerInitializeSucceedAction,
 } from '../action/player.action';
+import type {
+  LobbyAction,
+  LobbyCreateAction,
+  LobbyJoinAction,
+} from '../action/lobby.action';
 
 const registerPlayer = loader('../../graphql/mutation_register-player.graphql');
 type RegisterPlayerResponse = { registerPlayer: { name: string } };
 
 export const initializePlayerEpic = (
   action: Observable<Action<PlayerInitializeAction>>
-): Observable<
-  Action<PlayerInitializeSucceedAction | PlayerInitializeFailedAction>
-> =>
+): Observable<Action<any>> =>
   action.pipe(
     ofType(PLAYER_INITIALIZE),
     mergeMap((action: PlayerInitializeAction) =>
-      apolloClient
-        .mutate({
+      from(
+        apolloClient.mutate({
           mutation: registerPlayer,
           variables: { name: action.payload.name },
         })
-        .then((response: { data: RegisterPlayerResponse }) =>
-          initializePlayerSucceed(response.data.registerPlayer.name)
-        )
-        .catch((error: any) => initializePlayerFailed(error))
+      ).pipe(
+        tap(() => console.log('callback: ', action.payload.callback)),
+        mergeMap((response: { data: RegisterPlayerResponse }) =>
+          of(
+            initializePlayerSucceed(response.data.registerPlayer.name),
+            action.payload.callback
+          )
+        ),
+        catchError((error: any) => of(initializePlayerFailed(error)))
+      )
     )
   );

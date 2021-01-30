@@ -1,0 +1,5 @@
+mutation JoinBoard($uuid: ID!) {
+  joinBoard(uuid: $uuid) {
+    name
+  }
+}

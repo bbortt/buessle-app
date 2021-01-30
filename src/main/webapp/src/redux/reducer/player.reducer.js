@@ -30,10 +30,10 @@ export default (
         initializing: true,
       };
     case PLAYER_INITIALIZE_SUCCEED:
-      const typedAction = ((action: any): PlayerInitializeSucceedAction);
+      const { name } = ((action: any): PlayerInitializeSucceedAction).payload;
       return {
         ...state,
-        name: typedAction.payload.name,
+        name,
         initializing: false,
       };
     case PLAYER_INITIALIZE_FAILED:

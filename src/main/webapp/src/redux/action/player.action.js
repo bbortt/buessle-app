@@ -1,11 +1,13 @@
 // @flow
+import type { LobbyCreateAction, LobbyJoinAction } from './lobby.action';
+
 export const PLAYER_INITIALIZE = 'player:initialize';
 export const PLAYER_INITIALIZE_SUCCEED = 'player:initialize-succeed';
 export const PLAYER_INITIALIZE_FAILED = 'player:initialize-failed';
 
 export type PlayerInitializeAction = {
   type: string,
-  payload: { name: string },
+  payload: { name: string, callback: LobbyCreateAction | LobbyJoinAction },
 };
 
 export type PlayerInitializeSucceedAction = {
@@ -23,9 +25,12 @@ export type PlayerAction =
   | PlayerInitializeSucceedAction
   | PlayerInitializeFailedAction;
 
-export const initializePlayer = (name: string): PlayerInitializeAction => ({
+export const initializePlayer = (
+  name: string,
+  callback: LobbyCreateAction | LobbyJoinAction
+): PlayerInitializeAction => ({
   type: PLAYER_INITIALIZE,
-  payload: { name },
+  payload: { name, callback },
 });
 
 export const initializePlayerSucceed = (

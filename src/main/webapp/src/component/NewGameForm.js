@@ -24,15 +24,17 @@ export const NewGameForm = (): Element<'div'> => {
       return;
     }
 
-    dispatch(initializePlayer(name));
+    let lobbyAction;
     if (createNew) {
-      dispatch(createLobby(newGameName));
+      lobbyAction = createLobby(newGameName);
     } else {
-      dispatch(joinLobby(code));
+      lobbyAction = joinLobby(code);
     }
+
+    dispatch(initializePlayer(name, lobbyAction));
   };
 
-  const validateForm = (): boolean => {
+  const validateForm = (): void => {
     const errors = [];
     if (name.length <= 0) {
       errors.push('Dr Namä vergesse!');
