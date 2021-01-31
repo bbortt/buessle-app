@@ -11,6 +11,7 @@ type Mutation {
 type Board {
   uuid: ID!
   name: String!
+  players: [Player]!
 }
 
 type Player {

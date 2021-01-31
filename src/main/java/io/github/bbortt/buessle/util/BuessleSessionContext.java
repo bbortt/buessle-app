@@ -14,14 +14,16 @@ public class BuessleSessionContext {
 
   private static final String SESSION_PLAYER_ATTRIBUTE_NAME = "BuessleSessionContext:Player";
 
+  private final ObjectMapper objectMapper = new ObjectMapper();
+
   public Optional<Player> getPlayer() {
     return Optional.of(get().getAttribute(SESSION_PLAYER_ATTRIBUTE_NAME))
-      .map(sessionPlayer -> new ObjectMapper().convertValue(sessionPlayer, Player.class));
+      .map(sessionPlayer -> objectMapper.convertValue(sessionPlayer, Player.class));
   }
 
   public void setPlayer(Player player) {
     try {
-      get().setAttribute(SESSION_PLAYER_ATTRIBUTE_NAME, new ObjectMapper().writeValueAsString(player));
+      get().setAttribute(SESSION_PLAYER_ATTRIBUTE_NAME, objectMapper.writeValueAsString(player));
     } catch (JsonProcessingException e) {
       throw new IllegalArgumentException(e);
     }
