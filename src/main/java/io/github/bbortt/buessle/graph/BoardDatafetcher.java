@@ -13,10 +13,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.data.crossstore.ChangeSetPersister.NotFoundException;
 
 @DgsComponent
 public class BoardDatafetcher {
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(BoardDatafetcher.class);
 
   private final BoardCRUDRepository boardRepository;
   private final BuessleSessionContext buessleSessionContext;
@@ -27,13 +31,17 @@ public class BoardDatafetcher {
     this.buessleSessionContext = buessleSessionContext;
   }
 
-  @DgsData(parentType = QUERY.TYPE_NAME, field = QUERY.BoardByUUID)
+  @DgsData(parentType = QUERY.TYPE_NAME, field = QUERY.Board)
   public Optional<Board> boardByUUID(@InputArgument("uuid") UUID uuid) {
-    return boardRepository.findByUUID(uuid);
+    LOGGER.info("Looking for board by uuid: {}", uuid);
+
+    return boardRepository.findByUuid(uuid);
   }
 
   @DgsData(parentType = MUTATION.TYPE_NAME, field = MUTATION.CreateBoard)
   public Board createBoard(@InputArgument("name") String name) {
+    LOGGER.info("Create new board: {}", name);
+
     Board board = Board.newBuilder()
       .uuid(UUID.randomUUID().toString())
       .name(name)
@@ -44,17 +52,24 @@ public class BoardDatafetcher {
 
   @DgsData(parentType = MUTATION.TYPE_NAME, field = MUTATION.JoinBoard)
   public Board joinBoard(@InputArgument("uuid") UUID uuid) throws NotFoundException {
+    LOGGER.info("Current player joins board: {}", uuid);
+
     Board board = boardByUUID(uuid)
       .orElseThrow(NotFoundException::new);
 
     Player player = buessleSessionContext.getPlayer()
       .orElseThrow(IllegalAccessError::new);
 
-    List<Player> players = Optional.ofNullable(board.getPlayers())
+    List<String> playerUuids = Optional.ofNullable(board.getPlayerUuids())
       .orElse(new ArrayList<>());
-    players.add(player);
 
-    board.setPlayers(players);
-    return boardRepository.save(board);
+    player.setBoardUuid(board.getUuid());
+    playerUuids.add(player.getUuid());
+    board.setPlayerUuids(playerUuids);
+
+    board = boardRepository.save(board);
+    buessleSessionContext.setPlayer(player);
+
+    return board;
   }
 }

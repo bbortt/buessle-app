@@ -1,3 +1,4 @@
+// @flow
 import { NewGameForm } from '../component/NewGameForm';
 
 export const LandingPage = () => {

@@ -1,3 +1,4 @@
+// @flow
 import { Route } from 'react-router-dom';
 
 import LandingPage from './container/LandingPage';

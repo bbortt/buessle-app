@@ -1,5 +1,5 @@
 type Query {
-  boardByUUID(uuid: ID!): Board
+  board(uuid: ID!): Board
 }
 
 type Mutation {
@@ -11,9 +11,11 @@ type Mutation {
 type Board {
   uuid: ID!
   name: String!
-  players: [Player]!
+  playerUuids: [String]!
 }
 
 type Player {
+  uuid: ID!
   name: String!
+  boardUuid: String
 }

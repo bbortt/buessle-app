@@ -45,6 +45,7 @@
     "lint-staged": "^10.5.3",
     "prettier": "^2.2.1"
   },
+  "proxy": "http://localhost:8080",
   "browserslist": {
     "production": [
       ">0.2%",

@@ -20,12 +20,12 @@ public class BoardCRUDRepositoryImpl implements BoardCRUDRepository {
 
   @Override
   public Board save(Board board) {
-    hashOperations.put(KEY, board.getUuid().toString(), board);
+    hashOperations.put(KEY, board.getUuid(), board);
     return board;
   }
 
   @Override
-  public Optional<Board> findByUUID(UUID uuid) {
+  public Optional<Board> findByUuid(UUID uuid) {
     return Optional.ofNullable(hashOperations.get(KEY, uuid.toString()));
   }
 }

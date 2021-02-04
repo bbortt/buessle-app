@@ -1,0 +1,5 @@
+logging:
+  level:
+    root: debug
+    io.lettuce.core: info
+    org.springframework.data.redis.core: info

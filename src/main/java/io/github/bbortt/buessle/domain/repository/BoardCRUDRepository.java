@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 public interface BoardCRUDRepository {
 
   Board save(Board board);
-  Optional<Board> findByUUID(UUID uuid);
+  Optional<Board> findByUuid(UUID uuid);
 }
