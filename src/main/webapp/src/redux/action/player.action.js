@@ -1,23 +1,22 @@
 // @flow
-import type { LobbyCreateAction, LobbyJoinAction } from './lobby.action';
+import type { Action } from 'redux';
+
+import type { LobbyCreateAction, LobbyJoinAction } from './lobby.setup.action';
 
 export const PLAYER_INITIALIZE = 'player:initialize';
 export const PLAYER_INITIALIZE_SUCCEED = 'player:initialize-succeed';
 export const PLAYER_INITIALIZE_FAILED = 'player:initialize-failed';
 
-export type PlayerInitializeAction = {
-  type: string,
+export type PlayerInitializeAction = Action<string> & {
   payload: { name: string, callback: LobbyCreateAction | LobbyJoinAction },
 };
 
-export type PlayerInitializeSucceedAction = {
-  type: string,
+export type PlayerInitializeSucceedAction = Action<string> & {
   payload: { name: string },
 };
 
-export type PlayerInitializeFailedAction = {
-  type: string,
-  payload: string,
+export type PlayerInitializeFailedAction = Action<string> & {
+  payload: any,
 };
 
 export type PlayerAction =
@@ -41,7 +40,7 @@ export const initializePlayerSucceed = (
 });
 
 export const initializePlayerFailed = (
-  errorMessage: string
+  errorMessage: any
 ): PlayerInitializeFailedAction => ({
   type: PLAYER_INITIALIZE_FAILED,
   payload: errorMessage,

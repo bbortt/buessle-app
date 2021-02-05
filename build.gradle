@@ -7,7 +7,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.netflix.graphql.dgs.codegen:graphql-dgs-codegen-gradle:latest.release'
+    classpath "com.netflix.graphql.dgs.codegen:graphql-dgs-codegen-gradle:${graphql_dgs_spring_boot_starter_version}"
   }
 }
 
@@ -33,11 +33,12 @@ repositories {
 }
 
 dependencies {
-  implementation "com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter:${graphql_dgs_spring_boot_starter_version}"
+  implementation"com.netflix.graphql.dgs:graphql-dgs-spring-boot-starter:${graphql_dgs_spring_boot_starter_version}"
+  implementation "com.netflix.graphql.dgs:graphql-dgs-subscriptions-websockets-autoconfigure:${graphql_dgs_spring_boot_starter_version}"
   implementation "org.springframework.boot:spring-boot-starter-actuator"
   implementation "org.springframework.boot:spring-boot-starter-data-redis"
-  implementation "org.springframework.boot:spring-boot-starter-web"
   implementation "org.springframework.boot:spring-boot-starter-security"
+  implementation "org.springframework.boot:spring-boot-starter-web"
   implementation "org.springframework.session:spring-session-data-redis"
   developmentOnly "org.springframework.boot:spring-boot-devtools"
   testImplementation "org.springframework.boot:spring-boot-starter-test"
@@ -50,10 +51,6 @@ if (project.hasProperty("prod")) {
 
 clean {
   delete "${project.projectDir}/src/main/webapp/build"
-}
-
-springBoot {
-  mainClassName = "io.github.bbortt.buessle.BuessleApplication"
 }
 
 apply plugin: 'com.netflix.dgs.codegen'

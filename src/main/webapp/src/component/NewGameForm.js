@@ -4,10 +4,10 @@ import type { Element } from 'react';
 
 import { useDispatch } from 'react-redux';
 
-import { createLobby, joinLobby } from '../redux/action/lobby.action';
+import { createLobby, joinLobby } from '../redux/action/lobby.setup.action';
 import { initializePlayer } from '../redux/action/player.action';
 
-export const NewGameForm = (): Element<'div'> => {
+export const NewGameForm = (): Element<'form'> => {
   const [name, setName] = useState('');
   const [createNew, setCreateNew] = useState(true);
   const [newGameName, setNewGameName] = useState('');
@@ -72,87 +72,87 @@ export const NewGameForm = (): Element<'div'> => {
   };
 
   return (
-    <div className="NewGameForm">
-      <form onSubmit={handleSubmit}>
-        <label htmlFor="field_name">
-          Namä:
-          <input
-            type="text"
-            id="field_name"
-            name="name"
-            value={name}
-            onChange={handleChange}
-          />
-        </label>
-
-        <br />
-
-        <label htmlFor="field_new">
-          I erstellä es nöis Spiel
-          <input
-            type="radio"
-            id="field_new"
-            name="createNew"
-            value="new"
-            onChange={handleChange}
-            checked={createNew ? 'checked' : ''}
-          />
-        </label>
-
-        <br />
-
-        <label htmlFor="field_existing">
-          I hane Iladig
-          <input
-            type="radio"
-            id="field_existing"
-            name="createNew"
-            value="existing"
-            onChange={handleChange}
-            checked={!createNew ? 'checked' : ''}
-          />
-        </label>
-
-        <br />
-
-        {createNew ? (
-          <div>
-            <label htmlFor="field_newGameName">
-              Spiel Namä:
-              <input
-                type="text"
-                id="field_newGameName"
-                name="newGameName"
-                value={newGameName}
-                onChange={handleChange}
-              />
-            </label>
-
-            <br />
-          </div>
-        ) : (
-          <div>
-            <label htmlFor="field_code">
-              Kod:
-              <input
-                type="code"
-                id="field_code"
-                name="code"
-                value={code}
-                onChange={handleChange}
-              />
-            </label>
-
-            <br />
-          </div>
-        )}
-
+    <form className="NewGameForm" onSubmit={handleSubmit}>
+      <label htmlFor="field_name">
+        Namä:
         <input
-          type="submit"
-          value="Absände"
-          disabled={!touched || errors.length !== 0}
+          type="text"
+          id="field_name"
+          name="name"
+          value={name}
+          onChange={handleChange}
         />
-      </form>
-    </div>
+      </label>
+
+      <br />
+
+      <label htmlFor="field_new">
+        I erstellä es nöis Spiel
+        <input
+          type="radio"
+          id="field_new"
+          name="createNew"
+          value="new"
+          onChange={handleChange}
+          checked={createNew ? 'checked' : ''}
+        />
+      </label>
+
+      <br />
+
+      <label htmlFor="field_existing">
+        I hane Iladig
+        <input
+          type="radio"
+          id="field_existing"
+          name="createNew"
+          value="existing"
+          onChange={handleChange}
+          checked={!createNew ? 'checked' : ''}
+        />
+      </label>
+
+      <br />
+
+      {createNew ? (
+        <div>
+          <label htmlFor="field_newGameName">
+            Spiel Namä:
+            <input
+              type="text"
+              id="field_newGameName"
+              name="newGameName"
+              value={newGameName}
+              onChange={handleChange}
+            />
+          </label>
+
+          <br />
+        </div>
+      ) : (
+        <div>
+          <label htmlFor="field_code">
+            Kod:
+            <input
+              type="code"
+              id="field_code"
+              name="code"
+              value={code}
+              onChange={handleChange}
+            />
+          </label>
+
+          <br />
+        </div>
+      )}
+
+      <input
+        type="submit"
+        value="Absände"
+        disabled={!touched || errors.length !== 0}
+      />
+    </form>
   );
 };
+
+export default NewGameForm;

@@ -3,6 +3,7 @@ package io.github.bbortt.buessle.graph;
 import com.netflix.graphql.dgs.DgsComponent;
 import com.netflix.graphql.dgs.DgsData;
 import com.netflix.graphql.dgs.InputArgument;
+import io.github.bbortt.buessle.domain.repository.PlayerCRUDRepository;
 import io.github.bbortt.buessle.graph.DgsConstants.MUTATION;
 import io.github.bbortt.buessle.graph.types.Player;
 import io.github.bbortt.buessle.util.BuessleSessionContext;
@@ -15,9 +16,11 @@ public class PlayerDatafetcher {
 
   private static final Logger LOGGER = LoggerFactory.getLogger(PlayerDatafetcher.class);
 
+  private final PlayerCRUDRepository playerRepository;
   private final BuessleSessionContext buessleSessionContext;
 
-  public PlayerDatafetcher(BuessleSessionContext buessleSessionContext) {
+  public PlayerDatafetcher(PlayerCRUDRepository playerRepository, BuessleSessionContext buessleSessionContext) {
+    this.playerRepository = playerRepository;
     this.buessleSessionContext = buessleSessionContext;
   }
 
@@ -30,7 +33,9 @@ public class PlayerDatafetcher {
       .name(name)
       .build();
 
+    player = playerRepository.save(player);
     buessleSessionContext.setPlayer(player);
+
     return player;
   }
 }

@@ -8,6 +8,10 @@ type Mutation {
   registerPlayer(name: String!): Player!
 }
 
+type Subscription {
+  lobbyAction(uuid: String!): Action!
+}
+
 type Board {
   uuid: ID!
   name: String!
@@ -18,4 +22,9 @@ type Player {
   uuid: ID!
   name: String!
   boardUuid: String
+}
+
+type Action {
+  type: String!
+  payload: String!
 }

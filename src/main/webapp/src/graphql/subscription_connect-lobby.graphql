@@ -1,0 +1,6 @@
+subscription OnLobbyAction ($uuid: String!) {
+  lobbyAction(uuid: $uuid) {
+    type
+    payload
+  }
+}

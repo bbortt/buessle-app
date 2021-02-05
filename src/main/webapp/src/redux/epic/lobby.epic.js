@@ -1,66 +1,53 @@
 // @flow
 import type { Action } from 'redux';
+import type { ActionsObservable, StateObservable } from 'redux-observable';
 import { ofType } from 'redux-observable';
+import { push } from 'connected-react-router';
 
-import type { Observable } from 'rxjs';
-import { mergeMap } from 'rxjs/operators';
+import { filter, map, mergeMap, withLatestFrom } from 'rxjs/operators';
+
+import store from '../store';
 
 import { loader } from 'graphql.macro';
 import { apolloClient } from '../../apollo-client';
 
-import type {
-  LobbyCreateAction,
-  LobbyJoinAction,
-  LobbyJoinFailedAction,
-  LobbyJoinSucceedAction,
-} from '../action/lobby.action';
-import {
-  createLobbyFailed,
-  joinLobby,
-  joinLobbyFailed,
-  joinLobbySucceed,
-  LOBBY_CREATE,
-  LOBBY_JOIN,
-} from '../action/lobby.action';
+import type { LobbyConnectAction } from '../action/lobby.action';
+import { connectedToLobby, LOBBY_CONNECT } from '../action/lobby.action';
 
-const createBoard = loader('../../graphql/mutation_create-board.graphql');
-type CreateBoardResponse = { createBoard: { uuid: string } };
+import type { ApplicationState } from '../reducer';
+import { of } from 'rxjs';
 
-const joinBoard = loader('../../graphql/mutation_join-board.graphql');
-type JoinBoardResponse = { joinBoard: { name: string } };
+const connectLobby = loader('../../graphql/subscription_connect-lobby.graphql');
+type LobbyAction = Action<string> & { payload: string };
 
-export const createLobbyEpic = (
-  action: Observable<Action<LobbyCreateAction>>
-): Observable<Action<LobbyJoinAction | LobbyJoinFailedAction>> =>
+export const connectLobbyEpic = (
+  action: ActionsObservable<Action<LobbyConnectAction>>,
+  state: StateObservable<ApplicationState>
+): ActionsObservable<Action<LobbyConnectAction>> =>
   action.pipe(
-    ofType(LOBBY_CREATE),
-    mergeMap((action: LobbyCreateAction) =>
-      apolloClient
-        .mutate({
-          mutation: createBoard,
-          variables: { name: action.payload.name },
-        })
-        .then((response: { data: CreateBoardResponse }) =>
-          joinLobby(response.data.createBoard.uuid)
-        )
-        .catch((error: any) => createLobbyFailed(error))
-    )
-  );
+    ofType(LOBBY_CONNECT),
+    withLatestFrom(state),
+    filter(
+      ([, currentState: ApplicationState]) => !currentState.lobby.connected
+    ),
+    map(([, currentState: ApplicationState]) => {
+      if (!currentState.lobby.uuid) {
+        return push('/');
+      }
 
-export const joinLobbyEpic = (
-  action: Observable<Action<LobbyJoinAction>>
-): Observable<Action<LobbyJoinSucceedAction | LobbyJoinFailedAction>> =>
-  action.pipe(
-    ofType(LOBBY_JOIN),
-    mergeMap((action: LobbyJoinAction) =>
       apolloClient
-        .mutate({
-          mutation: joinBoard,
-          variables: { uuid: action.payload.uuid },
+        .subscribe({
+          query: connectLobby,
+          variables: { uuid: currentState.lobby.uuid },
         })
-        .then((response: { data: JoinBoardResponse }) =>
-          joinLobbySucceed(action.payload.uuid, response.data.joinBoard.name)
-        )
-        .catch((error: any) => joinLobbyFailed(error))
-    )
+        .subscribe(
+          (response: { data: LobbyAction }) => {
+            const { type, payload } = response.data;
+            store.dispatch({ type, payload: JSON.parse(payload) });
+          },
+          () => push('/')
+        );
+
+      return connectedToLobby();
+    })
   );

@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.server.session.WebSessionStore;
 
 @Component
 public class BuessleSessionContext {
@@ -18,6 +19,7 @@ public class BuessleSessionContext {
 
   private static final String SESSION_PLAYER_ATTRIBUTE_NAME = "BuessleSessionContext:Player";
 
+  private WebSessionStore redisSessionRepository;
   private final ObjectMapper objectMapper = new ObjectMapper();
 
   public Optional<Player> getPlayer() {

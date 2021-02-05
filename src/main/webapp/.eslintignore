@@ -1,3 +1,5 @@
 build/
+flow-typed/
 node_modules/
 public/
+src/__tests__
