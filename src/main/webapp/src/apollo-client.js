@@ -9,11 +9,11 @@ const httpLink = new HttpLink({
 
 const wsLink = new WebSocketLink({
   uri:
-    process.env.REACT_APP_GRAPHQL_SUBSCRIPTION_ENDPOINT ||
+    process.env.REACT_APP_GRAPHQL_SUBSCRIPTION_ENDPOINT_URi ||
     'ws://localhost:8080/subscriptions',
   options: {
     lazy: true,
-    reconnect: true,
+    // reconnect: true,
   },
 });
 

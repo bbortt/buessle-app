@@ -40,13 +40,14 @@ export const connectLobbyEpic = (
           query: connectLobby,
           variables: { uuid: currentState.lobby.uuid },
         })
-        .subscribe(
-          (response: { data: LobbyAction }) => {
-            const { type, payload } = response.data;
-            store.dispatch({ type, payload: JSON.parse(payload) });
+        .subscribe({
+          next: ({ data }: { data: LobbyAction }) => {
+            console.log('data: ', data);
+            // const { type, payload } = data;
+            // store.dispatch({ type, payload: JSON.parse(payload) });
           },
-          () => push('/')
-        );
+          error: () => push('/'),
+        });
 
       return connectedToLobby();
     })

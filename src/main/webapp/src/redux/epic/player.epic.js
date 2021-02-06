@@ -31,9 +31,9 @@ export const initializePlayerEpic = (
           variables: { name: action.payload.name },
         })
       ).pipe(
-        mergeMap((response: { data: RegisterPlayerResponse }) =>
+        mergeMap(({ data }: { data: RegisterPlayerResponse }) =>
           of(
-            initializePlayerSucceed(response.data.registerPlayer.name),
+            initializePlayerSucceed(data.registerPlayer.name),
             action.payload.callback
           )
         ),

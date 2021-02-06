@@ -41,8 +41,8 @@ export const createLobbyEpic = (
           mutation: createBoard,
           variables: { name: action.payload.name },
         })
-        .then((response: { data: CreateBoardResponse }) =>
-          joinLobby(response.data.createBoard.uuid)
+        .then(({ data }: { data: CreateBoardResponse }) =>
+          joinLobby(data.createBoard.uuid)
         )
         .catch((error: any) => createLobbyFailed(error))
     )
@@ -60,9 +60,9 @@ export const joinLobbyEpic = (
           variables: { uuid: action.payload.uuid },
         })
       ).pipe(
-        mergeMap((response: { data: JoinBoardResponse }) =>
+        mergeMap(({ data }: { data: JoinBoardResponse }) =>
           of(
-            joinLobbySucceed(action.payload.uuid, response.data.joinBoard.name),
+            joinLobbySucceed(action.payload.uuid, data.joinBoard.name),
             push('/lobby')
           )
         ),
